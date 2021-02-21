@@ -1,0 +1,26 @@
+version: 2
+jobs:
+  build-nodejs:
+    docker: 
+      - image: node:12.20.1 # the primary container, where your job's commands are run
+    environment:
+      ENVIRONMENT: development
+    steps:
+      - run: |
+          make frontend
+  build:golang:
+    docker: 
+      - image: golang:1.15.7
+    environment:
+      ENVIRONMENT: development
+    steps:
+      - run: |
+          make backend
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build-nodejs
+      - build-golang:
+          requires:
