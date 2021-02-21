@@ -1,11 +1,18 @@
 package main
 
 import (
-    "fmt"
+    "github.com/serhiiromaniuk/saas/server"
+    "github.com/serhiiromaniuk/saas/webserver"
 )
 
 func main() {
+    s := 1
 
-    fmt.Println("hello world")
+    switch s {
+        case 1:
+            webserver.Webserver()
+        case 2:
+            server.Server()
+    }
 
 }
