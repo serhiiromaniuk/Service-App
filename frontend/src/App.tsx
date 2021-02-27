@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-
-import Navbar from "./func/Navbar";
-
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Profile from "./pages/Profile";
+import "bulma/css/bulma.min.css";
+// import './Components/utils';
+import Navbar from "./Components/Navbar";
+import Home from "./Components/Home";
+import About from "./Components/About";
+import Profile from "./Components/Profile";
 
 function App() {
   return (
