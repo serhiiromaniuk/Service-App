@@ -10,13 +10,12 @@ clean:
 	@rm -rf ./saas.app ./frontend/build ./saas
 	@echo "[✔️] Clean complete!"
 build-backend:
+	@mkdir -p ./saas.app/Contents/MacOS
 	@go build -o ./saas.app/Contents/MacOS/saas
 	@echo "[✔️] Backend build complete!"
 build-frontend:
 	@cd ./frontend && npm install
-	@mkdir -p ./saas.app/Contents/MacOS
 	@echo "[✔️] Initialization complete!"
-	@cd ./frontend && npm run build
 	@echo "[✔️] Frontend build complete!"
 open:
 	@open ./saas.app
