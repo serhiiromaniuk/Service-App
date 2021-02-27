@@ -7,7 +7,7 @@ jobs:
       ENVIRONMENT: development
     steps:
       - run: |
-          make frontend
+          make build-frontend
       - store_artifacts:
           path: frontend/build
   build:golang:
@@ -17,7 +17,7 @@ jobs:
       ENVIRONMENT: development
     steps:
       - run: |
-          make backend
+          make build-backend
 
 workflows:
   version: 2

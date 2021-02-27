@@ -10,12 +10,6 @@ clean:
 	@rm -rf ./saas.app ./frontend/build ./saas
 	@echo "[✔️] Clean complete!"
 build-backend:
-	@go get -u github.com/gobuffalo/packr/packr
-	@go get -u github.com/gin-gonic/gin
-	@go get -u gorm.io/gorm
-	@go get -u gorm.io/driver/mysql
-	@dep ensure -add github.com/gobuffalo/packr
-	@dep ensure -add github.com/zserge/webview
 	@go build -o ./saas.app/Contents/MacOS/saas
 	@echo "[✔️] Backend build complete!"
 build-frontend:
