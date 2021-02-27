@@ -1,7 +1,7 @@
 package main
 
 import (
-    "github.com/serhiiromaniuk/saas/server"
+    "github.com/serhiiromaniuk/saas/backend"
     "github.com/serhiiromaniuk/saas/webserver"
 )
 

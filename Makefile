@@ -1,37 +1,33 @@
 
 ####################################################################################
 .PHONY: all
-all: clean init build-backend build-frontend open
-.PHONY: backend
-backend: clean init build-backend
-.PHONY: frontend
-frontend: clean init build-frontend
+all: clean build-backend build-frontend open
+backend: clean build-backend
+frontend: clean build-frontend
 
 ##
 .PHONY: clean
 clean:
 	@rm -rf ./saas.app ./frontend/build ./saas
 	@echo "[✔️] Clean complete!"
+
 ##
-.PHONY: init
-init:
+.PHONY: build-backend
+build-backend:
 	@go get -u github.com/gobuffalo/packr/packr
 	@go get -u github.com/gin-gonic/gin
 	@go get -u gorm.io/gorm
 	@go get -u gorm.io/driver/sqlite
 	@dep ensure -add github.com/gobuffalo/packr
 	@dep ensure -add github.com/zserge/webview
-	@cd ./frontend && npm install
-	@mkdir -p ./saas.app/Contents/MacOS
-	@echo "[✔️] Initialization complete!"
-##
-.PHONY: build-backend
-build-backend:
 	@go build -o ./saas.app/Contents/MacOS/saas
 	@echo "[✔️] Backend build complete!"
 
 .PHONY: build-frontend
 build-frontend:
+	@cd ./frontend && npm install
+	@mkdir -p ./saas.app/Contents/MacOS
+	@echo "[✔️] Initialization complete!"
 	@cd ./frontend && npm run build
 	@echo "[✔️] Frontend build complete!"
 ##
