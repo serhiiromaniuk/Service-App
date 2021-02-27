@@ -1,4 +1,4 @@
-package webserver
+package macos
 
 import (
     "encoding/json"
@@ -7,7 +7,7 @@ import (
     "github.com/gobuffalo/packr"
     "github.com/webview/webview"
 
-    "github.com/serhiiromaniuk/saas/webserver/settings"
+    "github.com/serhiiromaniuk/saas/package/macos/settings"
 )
 
 // Message : Define Json structure
@@ -15,8 +15,8 @@ type Message struct {
     Text string `json:"text"`
 }
 
-// Webserver : main package function
-func Webserver() {
+// PackageApp : main package function
+func PackageApp() {
     folder := packr.NewBox("../frontend/build")
     debug := true
 

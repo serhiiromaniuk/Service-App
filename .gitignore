@@ -14,6 +14,7 @@ coverage
 build
 saas.app
 saas
+main
 
 ## Misc
 .DS_Store

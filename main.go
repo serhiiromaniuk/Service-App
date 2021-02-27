@@ -4,19 +4,17 @@ import (
     "github.com/serhiiromaniuk/saas/backend/database"
 
     "github.com/serhiiromaniuk/saas/backend"
-    "github.com/serhiiromaniuk/saas/webserver"
+    "github.com/serhiiromaniuk/saas/package/macos"
 )
 
 func main() {
     s := 3
 
-    
-
     switch s {
         case 1:
-            webserver.Webserver()
+            macos.PackageApp()
         case 2:
-            server.Server()
+            backend.Server()
         case 3:
             database.Database()
     }
