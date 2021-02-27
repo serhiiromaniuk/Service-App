@@ -3,9 +3,9 @@
 .PHONY: all
 all: clean init build-backend build-frontend open
 .PHONY: backend
-backend: clean init build-backend open
+backend: clean init build-backend
 .PHONY: frontend
-frontend: clean init build-frontend open
+frontend: clean init build-frontend
 
 ##
 .PHONY: clean
