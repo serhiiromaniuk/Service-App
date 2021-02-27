@@ -17,19 +17,13 @@ type Message struct {
 
 // Webserver : main package function
 func Webserver() {
-
     folder := packr.NewBox("../frontend/build")
+    debug := true
 
     http.Handle("/", http.FileServer(folder))
-
-    // Handle to showMessage func on /hello path
     http.HandleFunc("/hello", showMessage)
-
-    // Run server at port 8000 as goroutine
-    // for non-block working
     go http.ListenAndServe(":8000", nil)
 
-    debug := true
 	window := webview.New(debug)
 	defer window.Destroy()
 	window.SetTitle("Go App")
@@ -44,20 +38,15 @@ func Webserver() {
 }
 
 func showMessage(writer http.ResponseWriter, request *http.Request) {
-    // Create Message JSON data
-    message := Message{
+    message := Message {
 		"World",
 	}
-
-    // Return JSON encoding to output
     output, err := json.Marshal(message)
 
-    // Catch error, if it happens
     if err != nil {
         http.Error(writer, err.Error(), http.StatusInternalServerError)
         return
     }
-
 
     writer.Header().Set("Content-Type", "application/json")
     writer.Write(output)

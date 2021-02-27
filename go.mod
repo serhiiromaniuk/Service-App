@@ -9,6 +9,7 @@ require (
 	github.com/gobuffalo/packr v1.30.1
 	github.com/gobuffalo/packr/v2 v2.8.1 // indirect
 	github.com/golang/protobuf v1.4.3 // indirect
+	github.com/joho/godotenv v1.3.0
 	github.com/json-iterator/go v1.1.10 // indirect
 	github.com/karrick/godirwalk v1.16.1 // indirect
 	github.com/konsorten/go-windows-terminal-sequences v1.0.3 // indirect
@@ -25,6 +26,7 @@ require (
 	golang.org/x/sys v0.0.0-20210227040730-b0d1d43c014d // indirect
 	golang.org/x/term v0.0.0-20210220032956-6a3ed077a48d // indirect
 	google.golang.org/protobuf v1.25.0 // indirect
+	gorm.io/driver/mysql v1.0.4
 	gorm.io/driver/sqlite v1.1.4 // indirect
-	gorm.io/gorm v1.20.12 // indirect
+	gorm.io/gorm v1.20.12
 )
