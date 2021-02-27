@@ -6,6 +6,7 @@ jobs:
     environment:
       ENVIRONMENT: development
     steps:
+      - checkout
       - run: |
           npm install --prefix frontend
           echo "[✔️] Initialization complete!"
@@ -19,6 +20,7 @@ jobs:
     environment:
       ENVIRONMENT: development
     steps:
+      - checkout
       - run: |
           mkdir -p ./saas.app/Contents/MacOS
           go build -o ./saas.app/Contents/MacOS/saas
