@@ -7,9 +7,9 @@ jobs:
       ENVIRONMENT: development
     steps:
       - run: |
-          cd ./frontend && npm install
+          npm install --prefix frontend
           echo "[✔️] Initialization complete!"
-          npm run build
+          npm run build --prefix frontend
           echo "[✔️] Frontend build complete!"
       - store_artifacts:
           path: frontend/build
