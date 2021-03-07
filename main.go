@@ -18,5 +18,4 @@ func main() {
         case 3:
             database.Database()
     }
-
 }

@@ -18,9 +18,8 @@ func DeclareEnvironment() {
 	":" +
 	os.Getenv("MYSQL_PASSWORD") +
 	"@tcp(" + os.Getenv("MYSQL_HOST") + ":" + os.Getenv("MYSQL_PORT") + ")" + "/" +
-	os.Getenv("MYSQL_DATABASE")
+	os.Getenv("MYSQL_DATABASE") +
+	"?charset=utf8&parseTime=True&loc=Local"
 
-	dsn := config + "?charset=utf8&parseTime=True&loc=Local"
-
-	return dsn
+	return config
 }

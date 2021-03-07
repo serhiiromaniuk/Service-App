@@ -22,9 +22,12 @@ jobs:
     steps:
       - checkout
       - run: |
-          mkdir -p ./saas.app/Contents/MacOS
-          go build -o ./saas.app/Contents/MacOS/saas
+          apt install -y libwebkit2gtk-4.0-dev
+          unset GOPATH
+          go build main.go
           echo "[✔️] Backend build complete!"
+      - store_artifacts:
+          path: main
           
 workflows:
   version: 2
