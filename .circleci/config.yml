@@ -22,7 +22,7 @@ jobs:
     steps:
       - checkout
       - run: |
-          apt install -y libwebkit2gtk-4.0-dev
+          apt update && apt install -y libwebkit2gtk-4.0-dev
           unset GOPATH
           go build main.go
           echo "[✔️] Backend build complete!"
