@@ -26,4 +26,4 @@ start:
 ####################################################################################
 db-compose:
 	@docker-compose --env-file .env down -v
-	@docker-compose --env-file .env up -d
+	@docker-compose --env-file .env up -d mysql

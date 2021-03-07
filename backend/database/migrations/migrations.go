@@ -2,36 +2,30 @@ package migrations
 
 import (
 	"time"
+
 )
 
 // Model definition
 type Model struct {
-	ID        uint			`gorm:"primaryKey" gorm:"autoIncrement" gorm:"not null"`
-	CreatedAt time.Time		//`gorm:"autoCreateTime"`
-	UpdatedAt time.Time		//`gorm:"autoCreateTime"`
+	ID        int			`gorm:"primarykey;autoIncrement;not null;"`
+	CreatedAt time.Time		`gorm:"not null"`
+	UpdatedAt time.Time		`gorm:"not null"`
 }
 
-// USERpermissions structure
-type USERpermissions struct {
+// USERUsers structure
+type USERUsers struct {
 	Model
-	UserID	USERusers	`gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"` //`gorm:"embedded"`
-	RoleID	USERroles	`gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+    Name	string
+	USERRoles []USERRoles `gorm:"many2many:user_permissions;"`
 }
 
-// USERusers structure
-type USERusers struct {
+// USERRoles structure
+type USERRoles struct {
 	Model
-    Name       	string
-}
-
-// USERroles structure
-type USERroles struct {
-	Model
-	Role	string
+	Role	string	`gorm:"not null"`
 }
 
 // Models main interface
 var Models = []interface{} {
-	&USERpermissions {}, 
-	&USERusers {},
-	&USERroles {}}
+	&USERUsers {},
+	&USERRoles {}}

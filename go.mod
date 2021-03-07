@@ -17,6 +17,7 @@ require (
 	github.com/magefile/mage v1.11.0 // indirect
 	github.com/mattn/go-sqlite3 v1.14.6 // indirect
 	github.com/rogpeppe/go-internal v1.7.0 // indirect
+	github.com/satori/go.uuid v1.2.0
 	github.com/sirupsen/logrus v1.8.0 // indirect
 	github.com/spf13/cobra v1.1.3 // indirect
 	github.com/ugorji/go v1.2.4 // indirect

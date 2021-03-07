@@ -30,9 +30,7 @@ func dbConnector() {
 	  log.Fatalf("Error loading .env file.\n%s", loadEnv)
 	}
 
-	config := os.Getenv("MYSQL_USER") + 
-	":" +
-	os.Getenv("MYSQL_PASSWORD") +
+	config := os.Getenv("MYSQL_USER") + ":" + os.Getenv("MYSQL_PASSWORD") +
 	"@tcp(" + os.Getenv("MYSQL_HOST") + ":" + os.Getenv("MYSQL_PORT") + ")" + "/" +
 	os.Getenv("MYSQL_DATABASE")
 
@@ -41,7 +39,7 @@ func dbConnector() {
 		logger.Config{
 		  SlowThreshold: time.Second,   
 		  LogLevel:      logger.Info, 
-		  Colorful:      true })
+		  Colorful:      false })
 
 	db, err := gorm.Open(mysql.New(mysql.Config{
 		DSN: config,
