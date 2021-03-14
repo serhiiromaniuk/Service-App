@@ -18,20 +18,18 @@ type Message struct {
 // PackageApp : main package function
 func PackageApp() {
     folder := packr.NewBox("../frontend/build")
-    debug := true
-
     http.Handle("/", http.FileServer(folder))
+    
     http.HandleFunc("/hello", showMessage)
     go http.ListenAndServe(":8000", nil)
-
-	window := webview.New(debug)
+    
+	window := webview.New(true)
 	defer window.Destroy()
 	window.SetTitle("Go App")
 	window.SetSize(
         settings.ScreenWidth,
         settings.ScreenHight,
-        webview.HintNone,
-    )
+        webview.HintNone )
 
 	window.Navigate("http://localhost:8000")
 	window.Run()
@@ -39,13 +37,11 @@ func PackageApp() {
 
 func showMessage(writer http.ResponseWriter, request *http.Request) {
     message := Message {
-		"World",
-	}
+		"World" }
     output, err := json.Marshal(message)
 
     if err != nil {
         http.Error(writer, err.Error(), http.StatusInternalServerError)
-        return
     }
 
     writer.Header().Set("Content-Type", "application/json")
