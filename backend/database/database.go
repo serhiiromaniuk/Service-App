@@ -14,6 +14,7 @@ import (
 	"gorm.io/gorm/logger"
 
 	"github.com/serhiiromaniuk/saas/backend/database/migrations"
+	"github.com/serhiiromaniuk/saas/backend/database/migrations"
 )
 
 // Database function
@@ -42,7 +43,7 @@ func dbConnector() {
 		  Colorful:      false })
 
 	db, err := gorm.Open(mysql.New(mysql.Config{
-		DSN: config,
+		DSN: DeclareEnvironment(),
 		DefaultStringSize: 128,
 		DontSupportRenameIndex: true,
 		SkipInitializeWithVersion: false }), &gorm.Config{
@@ -54,16 +55,4 @@ func dbConnector() {
 	}
 	
 	db.AutoMigrate(migrations.Models...)
-	// db.Model(migrations.Models).AddForeignKey("user_id", "user_users(id)", "RESTRICT", "RESTRICT")
 }
-
-// func handleRequests() {
-// 	myRouter := mux.NewRouter().StrictSlash(true)
-// 	myRouter.HandleFunc("/users", allUsers).Methods("GET")
-// 	myRouter.HandleFunc("/user/{name}", deleteUser).Methods("DELETE")
-// 	myRouter.HandleFunc("/user/{name}/{email}", updateUser).Methods("PUT")
-// 	myRouter.HandleFunc("/user/{name}/{email}", newUser).Methods("POST")
-// 	myRouter.HandleFunc("/user/{name}/{email}/{message}", updateUser).Methods("PUT")
-// 	myRouter.HandleFunc("/user/{name}/{email}/{message}", newUser).Methods("POST")
-// 	log.Fatal(http.ListenAndServe(":8081", myRouter))
-//  }

@@ -14,12 +14,9 @@ func DeclareEnvironment() {
 	  log.Fatalf("Error loading .env file")
 	}
 
-	config := os.Getenv("MYSQL_USER") + 
-	":" +
-	os.Getenv("MYSQL_PASSWORD") +
+	config := os.Getenv("MYSQL_USER") + ":" + os.Getenv("MYSQL_PASSWORD") +
 	"@tcp(" + os.Getenv("MYSQL_HOST") + ":" + os.Getenv("MYSQL_PORT") + ")" + "/" +
-	os.Getenv("MYSQL_DATABASE") +
-	"?charset=utf8&parseTime=True&loc=Local"
+	os.Getenv("MYSQL_DATABASE")
 
 	return config
 }
