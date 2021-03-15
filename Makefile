@@ -21,7 +21,7 @@ open:
 	@open ./saas.app
 	@echo "[✔️] App is running!"
 start:
-	@go build main.go ; ./main
+	@go build main.go && ./main
 
 ####################################################################################
 db-compose:
