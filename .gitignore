@@ -29,4 +29,4 @@ yarn-debug.log*
 yarn-error.log*
 
 ## Template
-go-gin-app/
+go-gin-app

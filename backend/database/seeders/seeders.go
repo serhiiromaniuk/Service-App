@@ -11,7 +11,7 @@ var (
 	db = settings.Database
 	user_seeder = migrations.USERUsers{}
 	userdata_seeder = migrations.UserData{
-		Model:     migrations.Model{},
+		// Model:     migrations.Model{}, // Todo
 		FullName: "Test User",
 		UserName:  "superuser",
 		Email:     "test@super.co",
