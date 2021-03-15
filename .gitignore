@@ -27,3 +27,6 @@ main
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+## Template
+go-gin-app/
