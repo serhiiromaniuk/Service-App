@@ -20,8 +20,8 @@ build-frontend:
 open:
 	@open ./saas.app
 	@echo "[✔️] App is running!"
-start:
-	@go build main.go && ./main
+run:
+	@go run main.go
 
 ####################################################################################
 db-compose:
