@@ -17,7 +17,7 @@ var (
 		log.New(os.Stdout, "\r\n", log.LstdFlags),
 		logger.Config{
 		  SlowThreshold: time.Second,   
-		  LogLevel:      logger.Info, 
+		  LogLevel:      logger.Silent, 
 		  Colorful:      false })
 	Database, Err = gorm.Open(mysql.New(mysql.Config{
 		DSN: declareEnvironment(),
@@ -37,7 +37,7 @@ func declareEnvironment() (config string) {
 
 	config = os.Getenv("MYSQL_USER") + ":" + os.Getenv("MYSQL_PASSWORD") +
 	"@tcp(" + os.Getenv("MYSQL_HOST") + ":" + os.Getenv("MYSQL_PORT") + ")" + "/" +
-	os.Getenv("MYSQL_DATABASE")
+	os.Getenv("MYSQL_DATABASE") + "?parseTime=true"
 
 	return 
 }

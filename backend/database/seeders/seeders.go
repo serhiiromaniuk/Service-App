@@ -4,9 +4,9 @@ import (
 	"log"
 	"time"
 
-	"gorm.io/gorm/clause"
 	"github.com/serhiiromaniuk/saas/backend/database/migrations"
 	"github.com/serhiiromaniuk/saas/backend/database/settings"
+	"gorm.io/gorm/clause"
 )
 
 var (
@@ -38,7 +38,7 @@ var (
 )
 
 func SeedDb() {
-	log.Print("\n\n=====> Starting seeders")
+	log.Print("=====> Starting seeders")
 
 	// Roles
 	db.Clauses(clause.OnConflict{DoNothing: true}).Create(&userroles_seeder)

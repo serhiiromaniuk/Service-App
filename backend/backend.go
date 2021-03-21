@@ -10,18 +10,29 @@ import (
 	// "golang.org/x/crypto/bcrypt"
 
 	"github.com/serhiiromaniuk/saas/backend/database"
+	"github.com/serhiiromaniuk/saas/backend/database/migrations"
 	"github.com/serhiiromaniuk/saas/backend/settings"
+)
+
+var (
+  db  = database.Database
+  userInfos = []migrations.UserInfos{}
+  userRoles = []migrations.UserRoles{}
 )
 
 // Server -- main decalration of Gin routes
 func Server() {
   database.InitDatabase()
-
+  
   router := gin.Default()
+	
+  v1 := router.Group("/api/v1")
+	{
+    v1.GET("/ping", ping)
+    v1.GET("/get/:id", getUserById)
+    v1.GET("/users/list", listUsers)
+	}
 
-  router.GET("/ping", ping)
-  router.GET("/get/:name", getUser)
-  router.GET("/users/list", listUsers)
   // router.POST("/register", registerUser)
 
   router.Run(settings.Host + ":" + settings.Port)
@@ -33,17 +44,15 @@ func ping(c *gin.Context) {
   })
 }
 
-func getUser(c *gin.Context) {
-  name := c.Param("name")
-  c.String(
-    http.StatusOK, 
-    "Hello %s", name )
+func getUserById(c *gin.Context) {
+  id := c.Param("id")
+  db.First(&userInfos, id)
+	c.JSON(http.StatusOK, gin.H{"data": userInfos})
 }
 
 func listUsers(c *gin.Context) {
-  c.String(
-    http.StatusOK, 
-    "OK" )
+	db.Find(&userInfos)
+	c.JSON(http.StatusOK, gin.H{"data": userInfos})
 }
 
 // func registerUser(c *gin.Context) {
