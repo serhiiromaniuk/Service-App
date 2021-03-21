@@ -44,8 +44,8 @@ func SeedDb() {
 	db.Clauses(clause.OnConflict{DoNothing: true}).Create(&userroles_seeder)
 	
 	// Users
-	db.Create(&default_user).Association("Roles").Append(&migrations.UserRoles{RoleID: 1})
-	db.Create(&super_user).Association("Roles").Append(&migrations.UserRoles{RoleID: 4})
+	db.Create(&default_user).Association("Role").Append(&migrations.UserRoles{RoleID: 1})
+	db.Create(&super_user).Association("Role").Append(&migrations.UserRoles{RoleID: 4})
 
 	// Update
 	db.Model(&migrations.UserRoles{}).Where("role_id", 1).Update("role", "default")

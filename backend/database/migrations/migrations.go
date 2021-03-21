@@ -31,12 +31,12 @@ type Model struct {
 }
 
 type UserRoles struct {
-	RoleID  int		`gorm:"primarykey;not null"`
-	Role	string	`gorm:"not null;"`
+	RoleID  int		`gorm:"primarykey;not null" json:"-"`
+	Role	string	`gorm:"not null;" json:"role"`
 }
 
 type UserInfos struct {
-	UserID      int			`gorm:"primarykey;autoIncrement;not null;unique json:"user_id""`
+	UserID      int			`gorm:"primarykey;autoIncrement;not null;unique" json:"id"`
 	FullName	string		`gorm:"not null" json:"fullname"`
 	UserName	string		`gorm:"not null" json:"username"`
 	Email		string		`gorm:"not null;unique" json:"email"`
@@ -46,5 +46,5 @@ type UserInfos struct {
 	UpdatedAt	time.Time	`gorm:"not null" json:"updated_at"`
 	
 	// Associations
-	Roles	[]UserRoles	`gorm:"many2many:user_permissions;foreignKey:UserID;joinForeignKey:UserID;References:RoleID;JoinReferences:RoleID"` 
+	Role	[]UserRoles	`gorm:"many2many:user_permissions;foreignKey:UserID;joinForeignKey:UserID;References:RoleID;JoinReferences:RoleID" json:"role"` 
 }

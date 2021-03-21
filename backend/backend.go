@@ -46,12 +46,12 @@ func ping(c *gin.Context) {
 
 func getUserById(c *gin.Context) {
   id := c.Param("id")
-  db.First(&userInfos, id)
+  db.Preload("Role").First(&userInfos, id)
 	c.JSON(http.StatusOK, gin.H{"data": userInfos})
 }
 
 func listUsers(c *gin.Context) {
-	db.Find(&userInfos)
+	db.Preload("Role").Find(&userInfos)
 	c.JSON(http.StatusOK, gin.H{"data": userInfos})
 }
 
