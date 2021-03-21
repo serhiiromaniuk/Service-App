@@ -7,52 +7,43 @@ import (
 	"github.com/serhiiromaniuk/saas/backend/database/settings"
 )
 
+func MigratreDb() {
+	log.Printf("\n\n=====> Starting migrations\n%s", Models)
+	if err := db.AutoMigrate(Models...); err != nil {
+		log.Fatalf("\n\n=====> Something were wrong with migrations\n%s", err)
+	}
+	log.Printf("=====> Migrations ended")	
+}
+
 // Models main interface
 var (
 	db = settings.Database
 	Models = []interface{} {
-		&USERUsers {},
-		&USERRoles {},
-		// &USERFiles {},
-		&UserData {} }
+		&UserRoles {},
+		&UserInfos {} }
 )
 
-func MigratreDb() {
-	log.Printf("=====> Starting migrations\n%s", Models)
-	if err := db.AutoMigrate(Models...); err != nil {
-		log.Fatalf("=====> Something were wrong with migrations\n%s", err)
-	}
-		log.Printf("=====> Migrations ended")	
-}
-
-// All migrations structs
 type Model struct {
-	ID        int			`gorm:"primarykey;autoIncrement;not null;"`
+	ID        int			`gorm:"primarykey;not null"`
 	CreatedAt time.Time		`gorm:"not null"`
 	UpdatedAt time.Time		`gorm:"not null"`
 }
 
-type USERUsers struct {
-	Model
-	USERRoles []USERRoles `gorm:"many2many:user_permissions;"`
-	USERData UserData
+type UserRoles struct {
+	RoleID  int		`gorm:"primarykey;not null"`
+	Role	string	`gorm:"not null;"`
 }
 
-type USERRoles struct {
-	Model
-	Role	string	`gorm:"not null"`
-}
-
-// type USERFiles struct {
-// 	Model
-// 	File oss.OSS
-// }
-
-type UserData struct {
-	ID			int		`gorm:"primarykey;autoIncrement;not null;"` // fix foreign key
-	FullName	string	`gorm:"not null"`
-	UserName	string	`gorm:"not null"`
-	Email		string	`gorm:"not null"`
-	Country		string	`gorm:"not null"`
-	Password	string	`gorm:"not null"`
+type UserInfos struct {
+	UserID      int			`gorm:"primarykey;autoIncrement;not null;unique"`
+	FullName	string		`gorm:"not null"`
+	UserName	string		`gorm:"not null"`
+	Email		string		`gorm:"not null;unique"`
+	Country		string		`gorm:"not null"`
+	Password	string		`gorm:"not null"`
+	CreatedAt	time.Time	`gorm:"not null"`
+	UpdatedAt	time.Time	`gorm:"not null"`
+	
+	// Associations
+	Roles	[]UserRoles	`gorm:"many2many:user_permissions;foreignKey:UserID;joinForeignKey:UserID;References:RoleID;JoinReferences:RoleID"` 
 }

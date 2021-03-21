@@ -2,30 +2,52 @@ package seeders
 
 import (
 	"log"
+	"time"
 
-	"github.com/serhiiromaniuk/saas/backend/database/settings"
+	"gorm.io/gorm/clause"
 	"github.com/serhiiromaniuk/saas/backend/database/migrations"
+	"github.com/serhiiromaniuk/saas/backend/database/settings"
 )
 
 var (
 	db = settings.Database
-	user_seeder = migrations.USERUsers{}
-	userdata_seeder = migrations.UserData{
-		// Model:     migrations.Model{}, // Todo
-		FullName: "Test User",
-		UserName:  "superuser",
-		Email:     "test@super.co",
-		Country:   "US",
-		Password:  "test",
-	}
+
+	userroles_seeder = []migrations.UserRoles{
+		{	RoleID: 1, Role:  "common"	},
+		{	RoleID: 2, Role:  "manager"	},
+		{ 	RoleID: 3, Role:  "admin"	},
+		{	RoleID: 4, Role:  "owner"	}	}
+
+
+	default_user = []migrations.UserInfos{
+		{
+			FullName:	"Test User",
+			UserName:	"default_user",
+			Email:		"test@super.co",
+			Country:	"US",
+			Password:	"test",
+			CreatedAt: time.Now(), UpdatedAt: time.Now() }}
+	super_user = []migrations.UserInfos{
+		{
+			FullName:	"Test User #2",
+			UserName:	"super_user",
+			Email:		"test2@super.co",
+			Country:	"US",
+			Password:	"test",
+			CreatedAt: time.Now(), UpdatedAt: time.Now() }}
 )
 
 func SeedDb() {
-	// db.Model(&UserData{}).Create([]map[string]interface{}{
-	// 	{"Name": "jinzhu_1", "Age": 18},
-	// 	{"Name": "jinzhu_2", "Age": 20}})
+	log.Print("\n\n=====> Starting seeders")
 
-	log.Println("=====> Starting seeders")
-	db.Create(&userdata_seeder)
+	// Roles
+	db.Clauses(clause.OnConflict{DoNothing: true}).Create(&userroles_seeder)
+	
+	// Users
+	db.Create(&default_user).Association("Roles").Append(&migrations.UserRoles{RoleID: 1})
+	db.Create(&super_user).Association("Roles").Append(&migrations.UserRoles{RoleID: 4})
+
+	// Update
+	db.Model(&migrations.UserRoles{}).Where("role_id", 1).Update("role", "default")
 	log.Println("=====> Seeders ended")	
 }

@@ -34,5 +34,5 @@ require (
 	golang.org/x/term v0.0.0-20210220032956-6a3ed077a48d // indirect
 	google.golang.org/protobuf v1.25.0 // indirect
 	gorm.io/driver/mysql v1.0.4
-	gorm.io/gorm v1.21.2
+	gorm.io/gorm v1.21.4
 )
