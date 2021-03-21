@@ -25,7 +25,7 @@ var (
 		DontSupportRenameIndex: true,
 		SkipInitializeWithVersion: false }), &gorm.Config{
 			Logger: LoggerConfig,
-			SkipDefaultTransaction: true })
+			SkipDefaultTransaction: true }	)
 )
 
 func declareEnvironment() (config string) {

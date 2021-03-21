@@ -26,7 +26,7 @@ var (
 			Email:		"test@super.co",
 			Country:	"US",
 			Password:	"test",
-			CreatedAt: time.Now(), UpdatedAt: time.Now() }}
+			CreatedAt: time.Now(), UpdatedAt: time.Now() }	}
 	super_user = []migrations.UserInfos{
 		{
 			FullName:	"Test User #2",
@@ -34,7 +34,7 @@ var (
 			Email:		"test2@super.co",
 			Country:	"US",
 			Password:	"test",
-			CreatedAt: time.Now(), UpdatedAt: time.Now() }}
+			CreatedAt: time.Now(), UpdatedAt: time.Now() }	}
 )
 
 func SeedDb() {
