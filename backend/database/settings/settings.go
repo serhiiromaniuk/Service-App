@@ -21,7 +21,6 @@ var (
 		  Colorful:      false })
 	Database, Err = gorm.Open(mysql.New(mysql.Config{
 		DSN: declareEnvironment(),
-		DefaultStringSize: 128,
 		DontSupportRenameIndex: true,
 		SkipInitializeWithVersion: false }), &gorm.Config{
 			Logger: LoggerConfig,
@@ -31,13 +30,12 @@ var (
 func declareEnvironment() (config string) {
 	if godotenv.Load(".env") != nil {
 		fmt.Print(os.Getenv("PWD"))
-
 		log.Fatal("Error loading .env file on settings module")
 	}
 
 	config = os.Getenv("MYSQL_USER") + ":" + os.Getenv("MYSQL_PASSWORD") +
 	"@tcp(" + os.Getenv("MYSQL_HOST") + ":" + os.Getenv("MYSQL_PORT") + ")" + "/" +
-	os.Getenv("MYSQL_DATABASE") + "?parseTime=true"
+	os.Getenv("MYSQL_DATABASE") + "?charset=utf8mb4,utf8&collation=utf8mb4_unicode_ci&parseTime=true"
 
 	return 
 }

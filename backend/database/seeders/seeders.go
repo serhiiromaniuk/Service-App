@@ -5,48 +5,51 @@ import (
 
 	"saas/backend/database/migrations"
 	"saas/backend/database/settings"
+
 	"gorm.io/gorm/clause"
 )
 
-type rolesMap struct {
-	common		int		`gorm:"default:1"`
-	manager		int		`gorm:"default:2"`
-	admin		int		`gorm:"default:3"`
-	owner		int		`gorm:"default:4"`
+type RolesMap struct {
+	common  int
+	manager int
+	admin   int
+	owner   int
 }
 
-var userRolesMap = &rolesMap{
+var UserRolesMap = &RolesMap{
 	common:  1,
 	manager: 2,
 	admin:   3,
-	owner:   4 }
-	
-var	SetCommon = &migrations.UserRoles{RoleID: userRolesMap.common}
-var	SetManager = &migrations.UserRoles{RoleID: userRolesMap.manager}
-var	SetAdmin = &migrations.UserRoles{RoleID: userRolesMap.admin}
-var	SetOwner = &migrations.UserRoles{RoleID: userRolesMap.owner}
+	owner:   4}
+
+var SetDefault = &migrations.UserRoles{RoleID: UserRolesMap.common}
+var SetManager = &migrations.UserRoles{RoleID: UserRolesMap.manager}
+var SetAdmin = &migrations.UserRoles{RoleID: UserRolesMap.admin}
+var SetOwner = &migrations.UserRoles{RoleID: UserRolesMap.owner}
 
 var (
 	db = settings.Database
 
 	userroles_seeder = []migrations.UserRoles{
-		{	RoleID: 1, Role:  "common"	},
-		{	RoleID: 2, Role:  "manager"	},
-		{ 	RoleID: 3, Role:  "admin"	},
-		{	RoleID: 4, Role:  "owner"	}	}
+		{RoleID: 1, Role: "common"},
+		{RoleID: 2, Role: "manager"},
+		{RoleID: 3, Role: "admin"},
+		{RoleID: 4, Role: "owner"}}
 
 	default_user = []migrations.UserInfos{
 		{
-			UserName:	"default_user",
-			Email:		"test@super.co",
-			Country:	"US",
-			Password:	"test" }}
+			Uuid: migrations.Uuid(),
+			UserName: "default_user",
+			Email:    "test@super.co",
+			Country:  "US",
+			Password: "test"}}
 	super_user = []migrations.UserInfos{
 		{
-			UserName:	"super_user",
-			Email:		"test2@super.co",
-			Country:	"US",
-			Password:	"test" }}
+			Uuid: migrations.Uuid(),
+			UserName: "super_user",
+			Email:    "test2@super.co",
+			Country:  "US",
+			Password: "test"}}
 )
 
 func SeedDb() {
@@ -54,12 +57,12 @@ func SeedDb() {
 
 	// Roles
 	db.Clauses(clause.OnConflict{DoNothing: true}).Create(&userroles_seeder)
-	
+
 	// Users
-	db.Create(&default_user).Association("Role").Append(SetCommon)
-	db.Create(&super_user).Association("Role").Append(SetOwner)
+	db.Clauses(clause.OnConflict{DoNothing: true}).Create(&default_user).Association("Role").Append(SetDefault)
+	db.Clauses(clause.OnConflict{DoNothing: true}).Create(&super_user).Association("Role").Append(SetOwner)
 
 	// Update
 	db.Model(&migrations.UserRoles{}).Where("role_id", 1).Update("role", "default")
-	log.Println("=====> Seeders ended")	
+	log.Println("=====> Seeders ended")
 }

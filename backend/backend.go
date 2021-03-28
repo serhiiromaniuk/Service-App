@@ -5,7 +5,7 @@ import (
   
 	"saas/backend/controller"
 	"saas/backend/database"
-	"saas/backend/settings"
+	"saas/backend/utils"
 )
 
 func Server() {
@@ -19,8 +19,11 @@ func Server() {
     v1.GET("/get/:id", controller.GetUserById)
     v1.GET("/auth/list", controller.ListUsers)
 
-    // v1.POST("/auth/create", controller.CreateUser)
+    v1.POST("/auth/create/user", controller.CreateUser)
+
+    // todo role binding
+    // v1.POST("/auth/create/rolebinding", controller.CreateUser("default"))
 	}
 
-  router.Run(settings.Host + ":" + settings.Port)
+  router.Run(utils.Host + ":" + utils.Port)
 }
