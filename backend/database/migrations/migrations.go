@@ -5,7 +5,7 @@ import (
 	"log"
 	// "encoding/json"
 	// "github.com/qor/media/oss"
-	"github.com/serhiiromaniuk/saas/backend/database/settings"
+	"saas/backend/database/settings"
 )
 
 func MigratreDb() {
@@ -16,7 +16,6 @@ func MigratreDb() {
 	log.Printf("=====> Migrations ended")
 }
 
-// Models main interface
 var (
 	db = settings.Database
 	Models = []interface{} {
@@ -36,14 +35,14 @@ type UserRoles struct {
 }
 
 type UserInfos struct {
-	UserID      int			`gorm:"primarykey;autoIncrement;not null;unique" json:"id"`
-	FullName	string		`gorm:"not null" json:"fullname"`
-	UserName	string		`gorm:"not null" json:"username"`
-	Email		string		`gorm:"not null;unique" json:"email"`
-	Country		string		`gorm:"not null" json:"country"`
-	Password	string		`gorm:"not null" json:"password"`
-	CreatedAt	time.Time	`gorm:"not null" json:"created_at"`
-	UpdatedAt	time.Time	`gorm:"not null" json:"updated_at"`
+	UserID      int			`gorm:"primarykey;autoIncrement;not null;unique"	json:"id"`
+	UserName	string		`gorm:"not null"									json:"username"		binding:"required,alphanum"`
+	Email		string		`gorm:"not null;unique"								json:"email"		binding:"required,email"`
+	Country		string		`gorm:"not null"									json:"country"		binding:"required"`
+	Password	string		`gorm:"not null"			 						json:"password"		binding:"required,min=6"`
+	IsActive	bool		`gorm:"default:true;not null"						json:"active"`
+	CreatedAt	time.Time	`gorm:"not null" 									json:"created_at"`
+	UpdatedAt	time.Time	`gorm:"not null" 									json:"updated_at"`
 	
 	// Associations
 	Role	[]UserRoles	`gorm:"many2many:user_permissions;foreignKey:UserID;joinForeignKey:UserID;References:RoleID;JoinReferences:RoleID" json:"role"` 

@@ -3,9 +3,9 @@ package database
 import (
 	"log"
 
-	"github.com/serhiiromaniuk/saas/backend/database/migrations"
-	"github.com/serhiiromaniuk/saas/backend/database/seeders"
-	"github.com/serhiiromaniuk/saas/backend/database/settings"
+	"saas/backend/database/migrations"
+	"saas/backend/database/seeders"
+	"saas/backend/database/settings"
 )
 var (
 	LoggerConfig = settings.LoggerConfig
@@ -14,7 +14,7 @@ var (
 
 func InitDatabase() {
 	if Err != nil {
-		log.Fatalln("Error connecting database.\n%s", Err)
+		log.Fatalf("Error connecting database.\n%s", Err)
 	}
 
 	migrations.MigratreDb()

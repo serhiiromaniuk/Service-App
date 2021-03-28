@@ -1,10 +1,10 @@
 package main
 
 import (
-    // "github.com/serhiiromaniuk/saas/backend/database"
+    // "saas/backend/database"
 
-    "github.com/serhiiromaniuk/saas/backend"
-    "github.com/serhiiromaniuk/saas/package/macos"
+    "saas/backend"
+    "saas/package/macos"
 )
 
 func main() {

@@ -4,10 +4,28 @@ import (
 	"log"
 	"time"
 
-	"github.com/serhiiromaniuk/saas/backend/database/migrations"
-	"github.com/serhiiromaniuk/saas/backend/database/settings"
+	"saas/backend/database/migrations"
+	"saas/backend/database/settings"
 	"gorm.io/gorm/clause"
 )
+
+type rolesMap struct {
+	common		int		`gorm:"default:1"`
+	manager		int		`gorm:"default:2"`
+	admin		int		`gorm:"default:3"`
+	owner		int		`gorm:"default:4"`
+}
+
+var userRolesMap = &rolesMap{
+	common:  1,
+	manager: 2,
+	admin:   3,
+	owner:   4 }
+	
+var	SetCommon = &migrations.UserRoles{RoleID: userRolesMap.common}
+var	SetManager = &migrations.UserRoles{RoleID: userRolesMap.manager}
+var	SetAdmin = &migrations.UserRoles{RoleID: userRolesMap.admin}
+var	SetOwner = &migrations.UserRoles{RoleID: userRolesMap.owner}
 
 var (
 	db = settings.Database
@@ -21,7 +39,6 @@ var (
 
 	default_user = []migrations.UserInfos{
 		{
-			FullName:	"Test User",
 			UserName:	"default_user",
 			Email:		"test@super.co",
 			Country:	"US",
@@ -29,12 +46,11 @@ var (
 			CreatedAt: time.Now(), UpdatedAt: time.Now() }	}
 	super_user = []migrations.UserInfos{
 		{
-			FullName:	"Test User #2",
 			UserName:	"super_user",
 			Email:		"test2@super.co",
 			Country:	"US",
-			Password:	"test",
-			CreatedAt: time.Now(), UpdatedAt: time.Now() }	}
+			Password:	"test" }}
+			//CreatedAt: time.Now(), UpdatedAt: time.Now() }	}
 )
 
 func SeedDb() {
