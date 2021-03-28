@@ -4,14 +4,15 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/gin-gonic/gin"
-	"saas/backend/database"
 	"saas/backend/database/migrations"
 	"saas/backend/database/seeders"
+	"saas/backend/database/settings"
+
+	"github.com/gin-gonic/gin"
 )
 
 var (
-	db = database.Database
+	db = settings.Database
 	userInfos = []migrations.UserInfos{}
 	userRoles = []migrations.UserRoles{}
 )
@@ -45,4 +46,3 @@ func CreateUser(c *gin.Context, arg migrations.UserInfos) {
 	db.Create(&user).Association("Role").Append(&role)
 
 }
-

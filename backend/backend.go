@@ -2,12 +2,7 @@ package backend
 
 import (
 	"github.com/gin-gonic/gin"
-	// "github.com/gin-gonic/contrib/jwt"
-	// "github.com/gin-gonic/contrib/static"
-	// "encoding/json"
-
-	// "golang.org/x/crypto/bcrypt"
-
+  
 	"saas/backend/controller"
 	"saas/backend/database"
 	"saas/backend/settings"

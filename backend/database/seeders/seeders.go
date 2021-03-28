@@ -2,7 +2,6 @@ package seeders
 
 import (
 	"log"
-	"time"
 
 	"saas/backend/database/migrations"
 	"saas/backend/database/settings"
@@ -36,21 +35,18 @@ var (
 		{ 	RoleID: 3, Role:  "admin"	},
 		{	RoleID: 4, Role:  "owner"	}	}
 
-
 	default_user = []migrations.UserInfos{
 		{
 			UserName:	"default_user",
 			Email:		"test@super.co",
 			Country:	"US",
-			Password:	"test",
-			CreatedAt: time.Now(), UpdatedAt: time.Now() }	}
+			Password:	"test" }}
 	super_user = []migrations.UserInfos{
 		{
 			UserName:	"super_user",
 			Email:		"test2@super.co",
 			Country:	"US",
 			Password:	"test" }}
-			//CreatedAt: time.Now(), UpdatedAt: time.Now() }	}
 )
 
 func SeedDb() {
@@ -60,8 +56,8 @@ func SeedDb() {
 	db.Clauses(clause.OnConflict{DoNothing: true}).Create(&userroles_seeder)
 	
 	// Users
-	db.Create(&default_user).Association("Role").Append(&migrations.UserRoles{RoleID: 1})
-	db.Create(&super_user).Association("Role").Append(&migrations.UserRoles{RoleID: 4})
+	db.Create(&default_user).Association("Role").Append(SetCommon)
+	db.Create(&super_user).Association("Role").Append(SetOwner)
 
 	// Update
 	db.Model(&migrations.UserRoles{}).Where("role_id", 1).Update("role", "default")
