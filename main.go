@@ -1,8 +1,6 @@
 package main
 
 import (
-    // "saas/backend/database"
-
     "saas/backend"
     "saas/package/macos"
 )
@@ -15,7 +13,5 @@ func main() {
             macos.PackageApp()
         case 2:
             backend.Server()
-        // case 3:
-        //     database.Database()
     }
 }

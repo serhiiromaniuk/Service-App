@@ -1,4 +1,4 @@
-package settings
+package database
 
 import (
 	"fmt"
@@ -19,7 +19,7 @@ var (
 		  SlowThreshold: time.Second,   
 		  LogLevel:      logger.Silent, 
 		  Colorful:      false })
-	Database, Err = gorm.Open(mysql.New(mysql.Config{
+	DB, db_err = gorm.Open(mysql.New(mysql.Config{
 		DSN: declareEnvironment(),
 		DontSupportRenameIndex: true,
 		SkipInitializeWithVersion: false }), &gorm.Config{

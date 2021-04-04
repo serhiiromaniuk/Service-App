@@ -1,4 +1,4 @@
-package controller
+package backend
 
 import (
 	"net/http"
@@ -7,10 +7,7 @@ import (
 	// === Error handling
 	"github.com/go-sql-driver/mysql"
 	// ===
-	"saas/backend/database/migrations"
-	"saas/backend/database/seeders"
-	"saas/backend/database/settings"
-	"saas/backend/utils"
+	"saas/backend/database"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -18,26 +15,26 @@ import (
 )
 
 var (
-	db        = settings.Database
-	userInfos = []migrations.UserInfos{}
-	userRoles = []migrations.UserRoles{}
+	db        = database.DB
+	userInfos = []database.UserInfos{}
+	userRoles = []database.UserRoles{}
 )
 
 func errorHandler(err error) gin.H {
 	return gin.H{"error": err.Error()}
 }
 
-func Ping(c *gin.Context) {
+func ping(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "pong"})
 }
 
-func GetUserById(c *gin.Context) {
+func getUserById(c *gin.Context) {
 	id := c.Param("id")
 	db.Preload("Role").First(&userInfos, id)
 	c.JSON(http.StatusOK, gin.H{"data": userInfos})
 }
 
-func ListUsers(c *gin.Context) {
+func listUsers(c *gin.Context) {
 	db.Preload("Role").Find(&userInfos)
 	c.JSON(http.StatusOK, gin.H{"data": userInfos})
 }
@@ -51,7 +48,7 @@ type customUserResponse struct {
 	CreatedAt time.Time 		`json:"created_at"`
 }
 
-func userResponse(user migrations.UserInfos) customUserResponse {
+func userResponse(user database.UserInfos) customUserResponse {
 	return customUserResponse{
 		Uuid:      user.Uuid,
 		UserName:  user.UserName,
@@ -62,21 +59,21 @@ func userResponse(user migrations.UserInfos) customUserResponse {
 	}
 }
 
-func CreateUser(c *gin.Context) {
-	var req migrations.UserInfos
+func createUser(c *gin.Context) {
+	var req database.UserInfos
 
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, errorHandler(err))
 		return
 	}
 
-	encryptedPassword, err := utils.HashPassword(req.Password)
+	encryptedPassword, err := hashPassword(req.Password)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, errorHandler(err))
 		return
 	}
-	arg := migrations.UserInfos{
-		Uuid: 		migrations.Uuid(),
+	arg := database.UserInfos{
+		Uuid: 		database.Uuid(),
 		UserName:	req.UserName,
 		Email:		req.Email,
 		Country:	req.Country,
@@ -92,16 +89,15 @@ func CreateUser(c *gin.Context) {
 			}
 			return err
 		} else {
-			tx.Model(&arg).Association("Role").Append(seeders.SetDefault)
-			rsp := userResponse(arg)
-			c.JSON(http.StatusOK, rsp)
+			tx.Model(&arg).Association("Role").Append(database.SetDefault)
+			c.JSON(http.StatusOK, userResponse(arg))
 			return nil
 		}
 	})
 }
 
 // func CreateRoleBinding(c *gin.Context) {
-// 	var roleBind *migrations.UserRoles
+// 	var roleBind *database.UserRoles
 // 	switch role {
 // 		case "default":
 // 			roleBind = seeders.SetDefault
