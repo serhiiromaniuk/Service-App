@@ -46,7 +46,7 @@ type UserRoles struct {
 type UserInfos struct {
 	Uuid      uuid.UUID `gorm:"primarykey;not null;" json:"uuid"`
 	UserName  string    `gorm:"not null" json:"username" binding:"required,alphanum"`
-	OrgID	  int 		`gorm:"default:null" json:"-" binding:"required,alphanum"`
+	OrgID	  int 		`gorm:"default:null" json:"org_id"`
 	Email     string    `gorm:"not null;unique" json:"email" binding:"required,email"`
 	Country   string    `gorm:"not null" json:"country" binding:"required"`
 	IsActive  bool      `gorm:"default:true;not null" json:"active"`
