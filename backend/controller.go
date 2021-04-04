@@ -119,6 +119,7 @@ func createOrg(c *gin.Context) {
 		OrgName:		req.OrgName,
 		OrgCountry:		req.OrgCountry }
 
+	// FIX
 	db.Transaction(func(tx *gorm.DB) error {
 		if err := tx.Create(&arg).Error; err != nil {
 			if err.(*mysql.MySQLError).Number == 1062 {
