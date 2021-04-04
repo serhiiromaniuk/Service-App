@@ -61,13 +61,21 @@ func SeedDb() {
 	DB.Clauses(clause.OnConflict{DoNothing: true}).Create(&userroles_seeder)
 
 	// Orgs
-	DB.Clauses(clause.OnConflict{DoNothing: true}).Create(&user_org)
+	DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Create(&user_org).Error; err != nil {
+			if err.(*mysql.MySQLError).Number == 1062 {
+				log.Println("==> ORG already present")
+			}
+			return err
+		}
+		return nil
+	})
 
 	// Users
 	DB.Transaction(func(tx *gorm.DB) error {
 		if err := tx.Create(&default_user).Error; err != nil {
 			if err.(*mysql.MySQLError).Number == 1062 {
-				log.Println("=====> Already present")
+				log.Println("==> Already present")
 			}
 			return err
 		}

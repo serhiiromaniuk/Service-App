@@ -17,6 +17,7 @@ func Server() {
     v1.GET("/auth/list", listUsers)
 
     v1.POST("/auth/create/user", createUser)
+    v1.POST("/auth/create/org", createOrg)
 
     // todo role binding
     // v1.POST("/auth/create/rolebinding", CreateUser("default"))

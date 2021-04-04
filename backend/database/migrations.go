@@ -4,6 +4,8 @@ import (
 	"log"
 	"time"
 
+	"github.com/go-sql-driver/mysql"
+	"gorm.io/gorm"
 	"github.com/google/uuid"
     "github.com/davecgh/go-spew/spew"
 )
@@ -22,20 +24,27 @@ func MigratreDb() {
 	for _, model := range Models {
 		log.Println("=====> Starting migration")
 		spew.Dump(model)
-		if err := DB.AutoMigrate(model); err != nil {
-			log.Fatalf("=====> Something were wrong with migrations\n%s", err)
+		if err_m := DB.Transaction(func(tx *gorm.DB) error {
+			if err_s := tx.AutoMigrate(model); err_s != nil {
+				if err_s.(*mysql.MySQLError).Number == 1062 {
+					log.Println("==> Already present")
+				}
+			}
+			return nil
+		}); err_m != nil {
+			log.Fatalf("=====> Something were wrong with migrations\n%s", err_m)
 		}
 	}
 	log.Printf("=====> Migrations ended")
 }
 
 type IdModel struct {
-	ID        int       `gorm:"primarykey;not null"`
+	ID        int       `gorm:"primarykey;not null" json:"id"`
 }
 
 type UpdatedAndCreated struct {
 	CreatedAt time.Time `gorm:"not null" json:"created_at"`
-	UpdatedAt time.Time `gorm:"not null" json:"updated_at"`
+	UpdatedAt time.Time `gorm:"not null" json:"-"`
 }
 
 type UserRoles struct {
@@ -60,7 +69,7 @@ type UserInfos struct {
 
 type OrgOrganisations struct {
 	IdModel
-	OrgName		string `gorm:"not null" json:"org_name"`
-	OrgCountry	string `gorm:"not null" json:"org_country"`
+	OrgName		string `gorm:"not null;unique" json:"org_name" binding:"required,alphanum"`
+	OrgCountry	string `gorm:"not null" json:"org_country" binding:"required"`
 	UpdatedAndCreated
 }

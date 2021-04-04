@@ -48,6 +48,13 @@ type customUserResponse struct {
 	CreatedAt time.Time 		`json:"created_at"`
 }
 
+type customOrgResponse struct {
+	ID			int 		`json:"org_id"`
+	OrgName		string		`json:"org_name"`
+	OrgCountry	string		`json:"org_country"`
+	CreatedAt	time.Time 	`json:"created_at"`
+}
+
 func userResponse(user database.UserInfos) customUserResponse {
 	return customUserResponse{
 		Uuid:      user.Uuid,
@@ -55,8 +62,14 @@ func userResponse(user database.UserInfos) customUserResponse {
 		Email:     user.Email,
 		Country:   user.Country,
 		IsActive:  user.IsActive,
-		CreatedAt: user.CreatedAt,
-	}
+		CreatedAt: user.CreatedAt }
+}
+
+func orgResponse(org database.OrgOrganisations) customOrgResponse {
+	return customOrgResponse{
+		ID:	org.ID,
+		OrgName: org.OrgName,
+		OrgCountry: org.OrgCountry }
 }
 
 func createUser(c *gin.Context) {
@@ -78,10 +91,8 @@ func createUser(c *gin.Context) {
 		Email:		req.Email,
 		Country:	req.Country,
 		IsActive: 	req.IsActive,
-		Password:	encryptedPassword,
-	}
+		Password:	encryptedPassword }
 
-	// rework error handling
 	db.Transaction(func(tx *gorm.DB) error {
 		if err := tx.Create(&arg).Error; err != nil {
 			if err.(*mysql.MySQLError).Number == 1062 {
@@ -96,18 +107,27 @@ func createUser(c *gin.Context) {
 	})
 }
 
-// func CreateRoleBinding(c *gin.Context) {
-// 	var roleBind *database.UserRoles
-// 	switch role {
-// 		case "default":
-// 			roleBind = seeders.SetDefault
-// 		case "manager":
-// 			roleBind = seeders.SetManager
-// 		case "admin":
-// 			roleBind = seeders.SetAdmin
-// 		case "owner":
-// 			roleBind = seeders.SetOwner
-// 		default:
-// 			roleBind = seeders.SetDefault
-// 	}
-// }
+func createOrg(c *gin.Context) {
+	var req database.OrgOrganisations
+
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, errorHandler(err))
+		return
+	}
+
+	arg := database.OrgOrganisations{
+		OrgName:		req.OrgName,
+		OrgCountry:		req.OrgCountry }
+
+	db.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Create(&arg).Error; err != nil {
+			if err.(*mysql.MySQLError).Number == 1062 {
+				c.JSON(http.StatusForbidden, gin.H{"error": "organisations has already registered"})
+			}
+			return err
+		} else {
+			c.JSON(http.StatusOK, orgResponse(arg))
+			return nil
+		}
+	})
+}
