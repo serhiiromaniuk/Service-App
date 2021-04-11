@@ -1,6 +1,5 @@
-import React from "react";
 import { useParams } from "react-router-dom";
-import withAuth from "../Auth";
+import verifyAuth from "../Auth/VerifyAuth";
 
 const Profile = () => {
   const { name } = useParams();
@@ -26,4 +25,4 @@ const Profile = () => {
   );
 };
 
-export default withAuth(Profile);
+export default verifyAuth(Profile);

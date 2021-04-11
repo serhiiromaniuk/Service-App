@@ -54,6 +54,15 @@ const Navbar = ({ history }) => {
             <NavLink
               className="navbar-item"
               activeClassName="is-active"
+              to="/users"
+              exact
+            >
+              Users
+            </NavLink>
+
+            <NavLink
+              className="navbar-item"
+              activeClassName="is-active"
               to="/about"
             >
               About
