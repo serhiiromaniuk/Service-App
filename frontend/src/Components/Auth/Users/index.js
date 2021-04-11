@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow'
 import axios from 'axios';
 import { useTable } from 'react-table';
 import { backend_url } from '../../utils';
+import './index.css';
 
 function Table({ columns, data }) {
   // Use the state and functions returned from useTable to build your UI
@@ -78,7 +79,7 @@ function Users() {
             accessor: 'country',
           },
           {
-            Header: 'Avtive',
+            Header: 'Active',
             accessor: 'active',
           },
           {
@@ -100,24 +101,24 @@ function Users() {
   )
 
   const url = backend_url + 'auth/list';
-  var data = [];
+  var table_data = [];
 
   async function getRequest() {
     const res = await axios.get(url);
     for (let i = 0; i < res.data.length; i++) {
-      data.push(JSON.stringify(res.data[i]));
+        table_data.push(res.data[i]);
     }
   }
 
   getRequest();
-  // console.log(data);
+  console.log(table_data);
   // eslint-disable-next-line 
-  const table_data = React.useMemo(() => data, [])
+  const data = React.useMemo(() => table_data, [])
 
   return (
       <div>
         <CssBaseline />
-        <Table columns={columns} data={table_data} />
+        <Table columns={columns} data={data} />
       </div>
     );
 }
