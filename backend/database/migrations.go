@@ -64,7 +64,7 @@ type UserInfos struct {
 
 	// Associations
 	Role []UserRoles `gorm:"many2many:user_permissions;foreignKey:Uuid;joinForeignKey:Uuid;References:RoleID;JoinReferences:RoleID" json:"role"`
-	Org OrgOrganisations `gorm:"foreignKey:OrgID;" json:"org"`
+	Org OrgOrganisations `gorm:"foreignKey:OrgID;" json:"-" binding:"-"`
 }
 
 type OrgOrganisations struct {

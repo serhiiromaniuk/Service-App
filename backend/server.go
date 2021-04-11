@@ -3,14 +3,14 @@ package backend
 import (
 	"github.com/gin-gonic/gin"
 	"saas/backend/database"
-  // "github.com/gin-contrib/cors"
+  "github.com/gin-contrib/cors"
 )
 
 func Server() {
   database.InitDatabase()
   
   router := gin.Default()
-  // router.Use(cors.Default())
+  router.Use(cors.Default())
 
   v1 := router.Group("/api/v1")
 	{
