@@ -14,31 +14,6 @@ import (
 	"gorm.io/gorm"
 )
 
-var (
-	db        = database.DB
-	userInfos = []database.UserInfos{}
-	userRoles = []database.UserRoles{}
-)
-
-func errorHandler(err error) gin.H {
-	return gin.H{"error": err.Error()}
-}
-
-func ping(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{"message": "pong"})
-}
-
-func getUserById(c *gin.Context) {
-	id := c.Param("id")
-	db.Preload("Role").First(&userInfos, id)
-	c.JSON(http.StatusOK, gin.H{"data": userInfos})
-}
-
-func listUsers(c *gin.Context) {
-	db.Preload("Role").Find(&userInfos)
-	c.JSON(http.StatusOK, gin.H{"data": userInfos})
-}
-
 type customUserResponse struct {
 	Uuid      uuid.UUID			`json:"uuid"`
 	UserName  string    		`json:"username"`
@@ -53,6 +28,22 @@ type customOrgResponse struct {
 	OrgName		string		`json:"org_name"`
 	OrgCountry	string		`json:"org_country"`
 	CreatedAt	time.Time 	`json:"created_at"`
+}
+
+func ping(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{"message": "pong"})
+}
+
+func getUserById(c *gin.Context) {
+	uuid := c.Param("uuid")
+	db.Preload("Role").First(&userInfos, uuid)
+	c.Header("Access-Control-Expose-Headers", "X-Total-Count")
+	c.JSON(http.StatusOK, parseJsonInfo(userInfos))
+}
+
+func listUsers(c *gin.Context) {
+	db.Preload("Role").Find(&userInfos)
+	c.JSON(http.StatusOK, userInfos)
 }
 
 func userResponse(user database.UserInfos) customUserResponse {
@@ -109,21 +100,17 @@ func createUser(c *gin.Context) {
 
 func createOrg(c *gin.Context) {
 	var req database.OrgOrganisations
-
-	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, errorHandler(err))
-		return
-	}
-
 	arg := database.OrgOrganisations{
 		OrgName:		req.OrgName,
 		OrgCountry:		req.OrgCountry }
+
+	verifyBind(&req)
 
 	// FIX
 	db.Transaction(func(tx *gorm.DB) error {
 		if err := tx.Create(&arg).Error; err != nil {
 			if err.(*mysql.MySQLError).Number == 1062 {
-				c.JSON(http.StatusForbidden, gin.H{"error": "organisations has already registered"})
+				c.JSON(http.StatusForbidden, gin.H{"error": "organisation has already registered"})
 			}
 			return err
 		} else {
