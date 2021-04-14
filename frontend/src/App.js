@@ -1,12 +1,12 @@
-import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import 'bulma/css/bulma.min.css';
-// import './Components/utils';
-import Navbar from './Components/Navbar';
-import Home from './Components/Home';
-import About from './Components/About';
-import Profile from './Components/Profile';
-import Users from './Components/Auth/Users'
+// import './components/utils';
+import Navbar from './components/Navbar';
+import Home from './components/Home';
+import About from './components/About';
+import Profile from './components/Profile';
+// import Users from './components/Auth/Users'
+import Users from './components/Users';
 
 function App() {
   return (
