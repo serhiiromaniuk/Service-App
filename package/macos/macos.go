@@ -1,49 +1,28 @@
 package macos
 
 import (
-    "encoding/json"
     "net/http"
 
     "github.com/gobuffalo/packr"
     "github.com/webview/webview"
 
-    "github.com/serhiiromaniuk/saas/package/macos/settings"
+    "saas/backend"
 )
 
-// Message : Define Json structure
-type Message struct {
-    Text string `json:"text"`
-}
-
-// PackageApp : main package function
 func PackageApp() {
-    folder := packr.NewBox("../frontend/build")
+    folder := packr.NewBox("/Users/serhiiromaniuk/go/src/saas/frontend/build")
     http.Handle("/", http.FileServer(folder))
+    go http.ListenAndServe(":8080", nil)
     
-    http.HandleFunc("/hello", showMessage)
-    go http.ListenAndServe(":8000", nil)
-    
-	window := webview.New(true)
+    window := webview.New(true)
 	defer window.Destroy()
 	window.SetTitle("Go App")
 	window.SetSize(
-        settings.ScreenWidth,
-        settings.ScreenHight,
+        ScreenWidth,
+        ScreenHight,
         webview.HintNone )
 
-	window.Navigate("http://localhost:8000")
+	window.Navigate("http://localhost:8080/")
 	window.Run()
-}
-
-func showMessage(writer http.ResponseWriter, request *http.Request) {
-    message := Message {
-		"World" }
-    output, err := json.Marshal(message)
-
-    if err != nil {
-        http.Error(writer, err.Error(), http.StatusInternalServerError)
-    }
-
-    writer.Header().Set("Content-Type", "application/json")
-    writer.Write(output)
+    backend.Server()
 }

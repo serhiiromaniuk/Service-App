@@ -28,7 +28,7 @@ var (
 )
 
 func declareEnvironment() (config string) {
-	if godotenv.Load(".env") != nil {
+	if godotenv.Load("/Users/serhiiromaniuk/go/src/saas/.env") != nil {
 		fmt.Print(os.Getenv("PWD"))
 		log.Fatal("Error loading .env file on settings module")
 	}
