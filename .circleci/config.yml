@@ -8,10 +8,9 @@ jobs:
     steps:
       - checkout
       - run: |
-          npm install --prefix frontend
-          echo "[✔️] Initialization complete!"
-          npm run build --prefix frontend
-          echo "[✔️] Frontend build complete!"
+          cd frontend
+          yarn
+          yarn build
       - store_artifacts:
           path: frontend/build
   build:golang:
@@ -25,7 +24,6 @@ jobs:
           apt update && apt install -y libwebkit2gtk-4.0-dev
           unset GOPATH
           go build main.go
-          echo "[✔️] Backend build complete!"
       - store_artifacts:
           path: main
           
