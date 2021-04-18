@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-    s := 1
+    s := 2
 
     switch s {
         case 1:
