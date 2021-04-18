@@ -2,7 +2,6 @@ package backend
 
 import (
 	"net/http"
-	"time"
 
 	// === Error handling
 	"github.com/go-sql-driver/mysql"
@@ -10,25 +9,8 @@ import (
 	"saas/backend/database"
 
 	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
-
-type customUserResponse struct {
-	Uuid      uuid.UUID			`json:"uuid"`
-	UserName  string    		`json:"username"`
-	Email     string    		`json:"email"`
-	Country   string    		`json:"country"`
-	IsActive  bool      		`json:"active"`
-	CreatedAt time.Time 		`json:"created_at"`
-}
-
-type customOrgResponse struct {
-	ID			int 		`json:"org_id"`
-	OrgName		string		`json:"org_name"`
-	OrgCountry	string		`json:"org_country"`
-	CreatedAt	time.Time 	`json:"created_at"`
-}
 
 func ping(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "pong"})
@@ -37,7 +19,6 @@ func ping(c *gin.Context) {
 func getUserById(c *gin.Context) {
 	uuid := c.Param("uuid")
 	db.Preload("Role").First(&userInfos, uuid)
-	c.Header("Access-Control-Expose-Headers", "X-Total-Count")
 	c.JSON(http.StatusOK, parseJsonInfo(userInfos))
 }
 
@@ -46,21 +27,15 @@ func listUsers(c *gin.Context) {
 	c.JSON(http.StatusOK, userInfos)
 }
 
-func userResponse(user database.UserInfos) customUserResponse {
-	return customUserResponse{
-		Uuid:      user.Uuid,
-		UserName:  user.UserName,
-		Email:     user.Email,
-		Country:   user.Country,
-		IsActive:  user.IsActive,
-		CreatedAt: user.CreatedAt }
+func getBlockContainerById(c *gin.Context) {
+	id := c.Param("id")
+	db.First(&blockContainers, id)
+	c.JSON(http.StatusOK, parseBlockContainer(blockContainers))
 }
 
-func orgResponse(org database.OrgOrganisations) customOrgResponse {
-	return customOrgResponse{
-		ID:	org.ID,
-		OrgName: org.OrgName,
-		OrgCountry: org.OrgCountry }
+func listBlockContainers(c *gin.Context) {
+	db.Find(&blockContainers)
+	c.JSON(http.StatusOK, blockContainers)
 }
 
 func createUser(c *gin.Context) {
@@ -115,6 +90,26 @@ func createOrg(c *gin.Context) {
 			return err
 		} else {
 			c.JSON(http.StatusOK, orgResponse(arg))
+			return nil
+		}
+	})
+}
+
+func createBlockContainer(c *gin.Context) {
+	var req database.BlockContainers
+	arg := database.BlockContainers{
+		Name:	req.Name,
+		Body:	req.Body }
+	verifyBind(&req)
+
+	db.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Create(&arg).Error; err != nil {
+			if err.(*mysql.MySQLError).Number == 1062 {
+				customErrorHandler("container")
+			}
+			return err
+		} else {
+			c.JSON(http.StatusOK, containerResponse(arg))
 			return nil
 		}
 	})

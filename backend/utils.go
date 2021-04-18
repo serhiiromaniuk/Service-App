@@ -16,9 +16,11 @@ const (
 )
 
 var (
-	db        = database.DB
-	userInfos = []database.UserInfos{}
-	userRoles = []database.UserRoles{}
+	db        		= database.DB
+	userInfos 		= []database.UserInfos{}
+	userRoles 		= []database.UserRoles{}
+	blockContainers = []database.BlockContainers{}
+	c 		  		= &gin.Context{}
 )
 
 func hashPassword(password string) (string, error) {
@@ -37,7 +39,17 @@ func errorHandler(err error) gin.H {
 	return gin.H{"error": err.Error()}
 }
 
+func customErrorHandler(message string) {
+	resp := message + " has already registered"
+	c.JSON(http.StatusForbidden, gin.H{"error": resp})
+}
+
 func parseJsonInfo(data []database.UserInfos) (v interface{}) {
+	for _, v = range data {}
+	return 
+}
+
+func parseBlockContainer(data []database.BlockContainers) (v interface{}) {
 	for _, v = range data {}
 	return 
 }

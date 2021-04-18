@@ -18,7 +18,8 @@ func MigratreDb() {
 	Models := []interface{}{
 		&UserRoles{},
 		&OrgOrganisations{},
-		&UserInfos{}}
+		&UserInfos{},
+		&BlockContainers{}}
 
 	log.Printf("=====> Starting migrations")
 	for _, model := range Models {
@@ -71,5 +72,12 @@ type OrgOrganisations struct {
 	IdModel
 	OrgName		string `gorm:"not null;unique" json:"org_name" binding:"required,alphanum"`
 	OrgCountry	string `gorm:"not null" json:"org_country" binding:"required"`
+	UpdatedAndCreated
+}
+
+type BlockContainers struct {
+	IdModel
+	Name				string `gorm:"not null;unique" json:"name" binding:"required"`
+	Body				string `gorm:"default:null" json:"body"`
 	UpdatedAndCreated
 }

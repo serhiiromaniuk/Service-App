@@ -15,9 +15,14 @@ func Server() {
   v1 := router.Group("/api/v1")
 	{
     v1.GET("/ping", ping)
-    v1.GET("/users/:id", getUserById)
+
+    v1.GET("/block/list", listBlockContainers)
+    v1.GET("/block/get/:id", getBlockContainerById)
+
+    v1.GET("/auth/get/:id", getUserById)
     v1.GET("/auth/list", listUsers)
 
+    v1.POST("/block/create/container", createBlockContainer)
     v1.POST("/auth/create/user", createUser)
     v1.POST("/auth/create/org", createOrg)
 
