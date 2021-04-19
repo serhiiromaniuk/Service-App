@@ -8,7 +8,7 @@ import CustomizedMenus from './Menu';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -17,16 +17,23 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CustomBar() {
   const classes = useStyles();
-
+  const colors = {
+    appBar: {
+      background: '#00eccd'
+    },
+    title: {
+      color: '#00000'
+    }
+  }
   return (
     <div className={classes.root}>
-      <AppBar position='static' color='#00eccd'>
-        <Toolbar variant='dense'>
-          <IconButton edge='start' className={classes.menuButton} color='inherit' aria-label='menu'>
+      <AppBar position='static' style={colors.appBar}>
+        <Toolbar variant='dense' >
+          <IconButton edge='start' className={classes.menuButton} aria-label='menu'>
             <CustomizedMenus />
           </IconButton>
-          <Typography variant='h6' color='inherit'>
-            Service board
+          <Typography variant='h6'>
+            <b>Service board</b>
           </Typography>
         </Toolbar>
       </AppBar>

@@ -33,7 +33,7 @@ const StyledMenu = withStyles({
 const StyledMenuItem = withStyles((theme) => ({
   root: {
     '&:focus': {
-      backgroundColor: theme.palette.primary.main,
+      backgroundColor: '#00eccd',
       '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
         color: theme.palette.common.white,
       },
@@ -55,16 +55,16 @@ function CustomizedMenus() {
   return (
     <div>
       <Button
-        aria-controls="customized-menu"
-        aria-haspopup="true"
-        variant="contained"
-        color="#ffffff"
+        aria-controls='customized-menu'
+        aria-haspopup='true'
+        variant='contained'
+        color='#00eccd'
         onClick={handleClick}
       >
         Menu
       </Button>
       <StyledMenu
-        id="customized-menu"
+        id='customized-menu'
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
@@ -73,30 +73,30 @@ function CustomizedMenus() {
 
         <StyledMenuItem>
           <ListItemIcon>
-            <PeopleAltIcon fontSize="small" />
+            <PeopleAltIcon fontSize='small' />
           </ListItemIcon>
-          <ListItemText primary="Users" />
+          <ListItemText primary='Users' />
         </StyledMenuItem>
 
         <StyledMenuItem>
           <ListItemIcon>
-            <ContactsRoundedIcon fontSize="small" />
+            <ContactsRoundedIcon fontSize='small' />
           </ListItemIcon>
-          <ListItemText primary="Profile" />
+          <ListItemText primary='Profile' />
         </StyledMenuItem>
 
         <StyledMenuItem>
           <ListItemIcon>
-            <DashboardRoundedIcon fontSize="small" />
+            <DashboardRoundedIcon fontSize='small' />
           </ListItemIcon>
-          <ListItemText primary="TODO" />
+          <ListItemText primary='TODO' />
         </StyledMenuItem>
         
         <StyledMenuItem>
           <ListItemIcon>
-            <ExitToAppRoundedIcon fontSize="small" />
+            <ExitToAppRoundedIcon fontSize='small' />
           </ListItemIcon>
-          <ListItemText primary="Log out" />
+          <ListItemText primary='Log out' />
         </StyledMenuItem>
 
       </StyledMenu>
