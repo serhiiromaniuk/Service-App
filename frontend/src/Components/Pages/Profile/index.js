@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import verifyAuth from "../Auth/VerifyAuth";
+import VerifyAuth from "../../VerifyAuth";
 
 const Profile = () => {
   const { name } = useParams();
@@ -25,4 +25,4 @@ const Profile = () => {
   );
 };
 
-export default verifyAuth(Profile);
+export default VerifyAuth(Profile);

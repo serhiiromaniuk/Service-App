@@ -1,16 +1,16 @@
 import { Redirect } from "react-router-dom";
 
-const verifyAuth = (Component) => {
+const VerifyAuth = (Component, redirect) => {
   const AuthRoute = () => {
     const isAuth = !!localStorage.getItem("token");
     if (isAuth) {
       return <Component />;
     } else {
-      return <Redirect to="/" />;
+      return <Redirect to={redirect || '/login'} />;
     }
   };
 
   return AuthRoute;
 };
 
-export default verifyAuth;
+export default VerifyAuth;

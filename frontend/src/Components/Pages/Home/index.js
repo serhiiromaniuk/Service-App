@@ -1,6 +1,7 @@
 import React from "react";
 import './style.css';
 import data from './data';
+import VerifyAuth from "../../VerifyAuth";
 
 function Home() {
   return (
@@ -15,4 +16,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default VerifyAuth(Home);

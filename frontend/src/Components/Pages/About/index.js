@@ -1,4 +1,5 @@
 import React from "react";
+import VerifyAuth from "../../VerifyAuth";
 
 const About = () => (
   <div>
@@ -13,4 +14,4 @@ const About = () => (
   </div>
 );
 
-export default About;
+export default VerifyAuth(About);
