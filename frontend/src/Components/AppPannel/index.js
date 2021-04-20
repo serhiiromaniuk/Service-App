@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CustomBar() {
+export default function AppPannel() {
   const classes = useStyles();
   const colors = {
     appBar: {

@@ -1,11 +1,13 @@
 import React from "react";
 import './style.css';
 import data from './data';
-import VerifyAuth from "../../VerifyAuth";
-
+// import VerifyAuth from "../../VerifyAuth";
+import AppPannel from '../../AppPannel';
 function Home() {
   return (
     <div>
+      <AppPannel/>
+
       <div className="home-title">
         <h1 className="title is1">{data.home_title}</h1>
       </div>
@@ -16,4 +18,4 @@ function Home() {
   );
 }
 
-export default VerifyAuth(Home);
+export default Home;

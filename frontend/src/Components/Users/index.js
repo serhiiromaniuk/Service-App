@@ -3,6 +3,7 @@ import axios from 'axios'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import EnhancedTable from './EnhancedTable'
 import { backend } from '../Utils'
+import AppPannel from '../AppPannel';
 
 const Users = () => {
   const columns = React.useMemo(
@@ -98,6 +99,7 @@ const Users = () => {
 
   return (
     <div>
+      <AppPannel/>
       <CssBaseline />
       <EnhancedTable
         columns={columns}
