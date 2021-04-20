@@ -1,4 +1,3 @@
-# SaaS
 ##
-##### SaaS platform for support purposes
+##### Platform for support purposes
 ##
