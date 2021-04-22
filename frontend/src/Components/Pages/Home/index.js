@@ -3,6 +3,7 @@ import './style.css';
 import data from './data';
 // import VerifyAuth from "../../VerifyAuth";
 import AppPannel from '../../AppPannel';
+
 function Home() {
   return (
     <div>

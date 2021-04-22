@@ -62,11 +62,9 @@ const Users = () => {
       }
     })
       .then(function(res){
-        // console.log(res)
         return res
       })
       .then(function(data) {
-        // console.log(data.data);
         setData(data.data)
       });
   }
@@ -75,12 +73,7 @@ const Users = () => {
     getData()
   },[])
 
-
-  // eslint-disable-next-line
-  // const [data, setData] = React.useState(React.useMemo(() => userData, []))
   const [skipPageReset, setSkipPageReset] = React.useState(false)
-
-
   const updateMyData = (rowIndex, columnId, value) => {
 
     setSkipPageReset(true)
@@ -100,7 +93,7 @@ const Users = () => {
   return (
     <div>
       <AppPannel/>
-      <CssBaseline />
+      <CssBaseline/>
       <EnhancedTable
         columns={columns}
         data={data}

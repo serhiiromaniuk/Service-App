@@ -1,9 +1,11 @@
 import React from "react";
 import VerifyAuth from "../../VerifyAuth";
+import AppPannel from '../../AppPannel';
 
 const About = () => (
   <div>
-    <h1 className="title is-1">This is the About Page</h1>
+    <AppPannel/>
+    <h1 className="title is-1" >This is the About Page</h1 >
     <p>
       Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
       inceptos himenaeos. Vestibulum ante ipsum primis in faucibus orci luctu
@@ -14,4 +16,4 @@ const About = () => (
   </div>
 );
 
-export default VerifyAuth(About);
+export default About;

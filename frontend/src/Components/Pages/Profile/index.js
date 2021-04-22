@@ -1,10 +1,12 @@
 import { useParams } from "react-router-dom";
 import VerifyAuth from "../../VerifyAuth";
+import AppPannel from '../../AppPannel';
 
 const Profile = () => {
   const { name } = useParams();
   return (
     <div>
+      <AppPannel/>
       <h1 className="title is-1">This is the Profile Page</h1>
       <article className="message is-dark" style={{ marginTop: 40 }}>
         <div className="message-header">
@@ -25,4 +27,4 @@ const Profile = () => {
   );
 };
 
-export default VerifyAuth(Profile);
+export default Profile;
