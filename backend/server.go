@@ -17,21 +17,21 @@ func Server() {
     v1.GET("/ping", ping)
 
   // Blocks
-    v1.GET("/block/list", listBlockContainers)
-    v1.GET("/block/get/:id", getBlockContainerById)
+    v1.GET("/block/container/list", listBlockContainers)
+    v1.GET("/block/container/get/:id", getBlockContainerById)
 
-    v1.POST("/block/create/container", createBlockContainer)
+    v1.POST("/block/container/create", createBlockContainer)
 
   // Auth Users
-    v1.GET("/auth/get/:id", getUserById)
-    v1.GET("/auth/list", listUsers)
+    v1.GET("/auth/user/get/:id", getUserById)
+    v1.GET("/auth/user/list", listUsers)
     
-    v1.POST("/auth/create/user", createUser)
+    v1.POST("/auth/user/create", createUser)
   
   // Auth Orgs
     // v1.GET("/auth/get/:id", createOrg)
 
-    v1.POST("/auth/create/org", createOrg)
+    v1.POST("/auth/org/create", createOrg)
 
   // Auth Roles
     // v1.POST("/auth/create/rolebinding", CreateUser("default"))
