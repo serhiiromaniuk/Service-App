@@ -2,8 +2,14 @@ import axios from 'axios';
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
+const opt = {
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+    }
+};
 
-function VerifyAuth(Component, redirect) {
+export function VerifyAuth(Component, redirect) {
     if (!!localStorage.getItem('auth_token')) {
         return <Component />;
     } else {
@@ -11,17 +17,65 @@ function VerifyAuth(Component, redirect) {
     }
 }
 
-function MakeLogin(token) {
+export function MakeLogin(token) {
     localStorage.setItem('auth_token', token);
 }
 
-function MakeLogout() {
+export function MakeLogout() {
     localStorage.removeItem('auth_token');
 }
 
-export {
-    VerifyAuth,
-    MakeLogin,
-    MakeLogout
-};
+export function GetUser(url, info) {
+    const [ response, setResponse ] = React.useState([]);
+    
+    axios.get(url, opt).then(
+        function(res) {
+            if (res.status != '200') {
+                setResponse(res.data)
+            } else {
+                setResponse([
+                    'Some error occured, url: ' + 
+                    url
+                ])
+            }
+        }
+    );
+    
+    if (!!info) {
+        return response[info];
+    } else {
+        return response;
+    }
+}
+
+export function CreateUser(url, userdata, info) {
+    const [ respone, setResponse ] = React.useState([]);
+
+    if (!!userdata) {
+        axios.post(url, userdata, opt).then(
+            function(res) {
+                if (res.status != '200') {
+                    setResponse(res.data)
+                } else {
+                    setResponse([
+                        'Some error occured, url: ' + 
+                        url +
+                        ' userdata: ' + userdata])
+                }
+            } 
+        );
+    } else {
+        setResponse(
+            'Some error occured, url: ' + 
+            url +
+            ' userdata: ' + userdata)
+    }
+
+    if (!!info) {
+        return response[info];
+    } else {
+        return response;
+    }
+}
+
 
