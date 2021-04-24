@@ -2,8 +2,8 @@ import React from 'react'
 import axios from 'axios'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import EnhancedTable from './EnhancedTable'
-import { backend } from '../Utils'
-import AppPannel from '../AppPannel';
+import { backend } from '../../Utils'
+import AppPannel from '../../AppPannel';
 
 const Users = () => {
   const columns = React.useMemo(
@@ -61,7 +61,7 @@ const Users = () => {
         'Accept': 'application/json'
       }
     })
-      .then(function(res){
+      .then(function(res) {
         return res
       })
       .then(function(data) {

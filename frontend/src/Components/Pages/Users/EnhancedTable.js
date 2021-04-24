@@ -1,5 +1,5 @@
+/* eslint-disable */ 
 import React from 'react'
-
 import Checkbox from '@material-ui/core/Checkbox'
 import MaUTable from '@material-ui/core/Table'
 import PropTypes from 'prop-types'

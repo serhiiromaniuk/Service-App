@@ -1,5 +1,4 @@
 import React from "react";
-import VerifyAuth from "../../VerifyAuth";
 import AppPannel from '../../AppPannel';
 
 const About = () => (

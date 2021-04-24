@@ -13,7 +13,7 @@ import Switch from '@material-ui/core/Switch'
 import TextField from '@material-ui/core/TextField'
 import Tooltip from '@material-ui/core/Tooltip'
 import axios from 'axios'
-import { backend } from '../Utils'
+import { backend } from '../../Utils'
  
 const initialUser = {
   username: '',

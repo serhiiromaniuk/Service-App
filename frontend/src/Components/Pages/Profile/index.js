@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
-import VerifyAuth from "../../VerifyAuth";
 import AppPannel from '../../AppPannel';
+import React from "react";
 
 const Profile = () => {
   const { name } = useParams();
