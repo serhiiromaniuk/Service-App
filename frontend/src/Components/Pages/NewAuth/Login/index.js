@@ -70,7 +70,7 @@ class Login extends Component {
     if (!this.passwordMatch()) {
       this.setState({
         errorOpen: true,
-        error: "Passwords don't match"
+        error: "Password are not equal"
       });
     }
 
@@ -228,7 +228,7 @@ class Login extends Component {
               }}
               open={this.state.errorOpen}
               onClose={this.errorClose}
-              autoHideDuration={3000}
+              autoHideDuration={10000}
             >
               <SnackbarContent
                 className={classes.error}

@@ -7,6 +7,7 @@ import About from './components/Pages/About'
 import Profile from './components/Pages/Profile'
 import Users from './components/Pages/Users';
 import Login from './components/Pages/NewAuth/Login';
+import Register from './components/Pages/NewAuth/Register';
 import { VerifyAuth, HandleLogin } from './components/Utils';
 
 function App() {
@@ -28,6 +29,9 @@ function App() {
           </Route>
           <Route exact path='/login'>
             {HandleLogin(Login)}
+          </Route>
+          <Route exact path='/register'>
+            {HandleLogin(Register)}
           </Route>
         </Switch>
       </BrowserRouter>

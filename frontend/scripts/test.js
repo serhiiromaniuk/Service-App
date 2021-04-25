@@ -58,10 +58,10 @@ function getUsers() {
 
 function createUser() {
     var data = {
-        username:   "tesatAxaaaios",
-        email:      "testAXIOSa@co.c",
+        username:   "testaxios",
+        email:      "test.axios@co.c",
         country:    "UA",
-        password:   "testaHEre"
+        password:   "testaxios"
     }
     var url = api.post.auth.user.create;
     axios.post(url, data, opt).then(
@@ -94,5 +94,5 @@ function testLogin() {
         )
 } 
 
-testLogin()
+createUser()
 

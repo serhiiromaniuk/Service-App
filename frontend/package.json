@@ -33,7 +33,8 @@
     "eject": "react-scripts eject",
     "run": "node --experimental-modules --es-module-specifier-resolution=node test.js",
     "lint": "eslint src/**",
-    "query": "node test.js"
+    "query": "node scripts/test.js",
+    "email": "node scripts/email.js"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -51,6 +52,7 @@
     ]
   },
   "devDependencies": {
+    "@sendgrid/mail": "^7.4.2",
     "@types/react-router-dom": "^5.1.7",
     "eslint": "^7.25.0"
   }
