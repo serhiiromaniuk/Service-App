@@ -1,13 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import 'bulma/css/bulma.min.css';
 
 import Home from './components/Pages/Home'
 import About from './components/Pages/About'
 import Profile from './components/Pages/Profile'
 import Users from './components/Pages/Users';
-import Login from './components/Pages/NewAuth/Login';
-import Register from './components/Pages/NewAuth/Register';
+import Login from './components/Auth/Login';
+import Register from './components/Auth/Register';
 import { VerifyAuth, HandleLogin } from './components/Utils';
 
 function App() {

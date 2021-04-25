@@ -8,7 +8,7 @@ const borderLight = "rgba(206,212,218, .993)";
 
 export const LoginStyles = theme => ({
   main: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(2),
     marginBottom: theme.spacing(4),
     marginRight: theme.spacing(3),
     marginLeft: theme.spacing(3),

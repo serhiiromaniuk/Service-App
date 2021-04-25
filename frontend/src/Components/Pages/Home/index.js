@@ -3,6 +3,8 @@ import './style.css';
 import data from './data';
 import AppPannel from '../../AppPannel';
 import { AlertMessage } from '../../Utils/alert';
+import 'bulma/css/bulma.min.css';
+
 
 export default function Home() {
   return (

@@ -8,7 +8,7 @@ const borderLight = "rgba(206,212,218, .993)";
 
 export const LoginStyles = theme => ({
   main: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(2),
     marginBottom: theme.spacing(4),
     marginRight: theme.spacing(3),
     marginLeft: theme.spacing(3),
@@ -178,8 +178,8 @@ export const LoginStyles = theme => ({
     }
   },
   error: {
-    border: `1.2px solid ${red[900]}`,
-    background: "rgba(169,198,217,0.29457423)",
+    border: `2px solid ${red[900]}`,
+    background: "rgba(60, 236, 205, 0.7)",
     color: red[900],
     fontSize: "14px",
     fontWeight: 400,

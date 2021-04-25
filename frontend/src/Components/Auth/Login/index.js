@@ -17,7 +17,7 @@ import VisibilityOffTwoToneIcon from "@material-ui/icons/VisibilityOffTwoTone";
 import CloseIcon from "@material-ui/icons/Close";
 import axios from 'axios';
 
-import { api, opt, MakeLogin } from '../../../Utils'
+import { api, opt, MakeLogin } from '../../Utils'
 
 class Login extends Component {
   constructor(props) {

@@ -17,7 +17,7 @@ import VisibilityOffTwoToneIcon from "@material-ui/icons/VisibilityOffTwoTone";
 import CloseIcon from "@material-ui/icons/Close";
 import axios from 'axios';
 
-import { api, opt, MakeLogin } from '../../../Utils'
+import { api, opt, MakeLogin } from '../../Utils'
 
 class Register extends Component {
   constructor(props) {
@@ -245,6 +245,17 @@ class Register extends Component {
               onClick={this.submitRegister}
             >
               Register
+            </Button>
+
+            <Button
+              disableRipple
+              fullWidth
+              variant="outlined"
+              className={classes.register_button}
+              type="button"
+              onClick={() => {window.location.href = '/login'}}
+            >
+              Back to Login
             </Button>
           </form>
 
