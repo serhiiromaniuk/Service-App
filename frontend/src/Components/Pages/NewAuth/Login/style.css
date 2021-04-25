@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
 
-.home-title,
-.home-text {
+.inputs {
     text-align: center;
     font-family: 'Quicksand', sans-serif;
     font-weight: 700;
@@ -11,8 +10,4 @@
     letter-spacing: -.02em;
     color: rgba(0, 0, 0, 0.8);
     -webkit-font-smoothing: antialiased;
-}
-
-.home-title {
-    margin-bottom: 5%;
 }

@@ -8,10 +8,10 @@ import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import HomeIcon from '@material-ui/icons/Home';
 import React from 'react';
-import { Redirect } from "react-router";
 import { useHistory } from 'react-router-dom';
 import { NavLink } from "react-router-dom";
 import { StyledMenu, StyledMenuItem, linkStyle} from './styles';
+import { MakeLogout } from '../../Utils'
 
 function CustomizedMenus() {
   const [anchorEl, setAnchorEl] = React.useState();
@@ -27,6 +27,11 @@ function CustomizedMenus() {
 
   const handleClose = () => {
     setAnchorEl(!anchorEl);
+  };
+
+  const handleCloseLogout = () => {
+    setAnchorEl(!anchorEl);
+    MakeLogout()
   };
 
   return (
@@ -81,8 +86,8 @@ function CustomizedMenus() {
           </StyledMenuItem>
         </NavLink>
 
-        <NavLink to='/' style={linkStyle}>
-          <StyledMenuItem onClick={handleClose}>
+        <NavLink to='/login' style={linkStyle}>
+          <StyledMenuItem onClick={handleCloseLogout}>
             <ListItemIcon >
               <ExitToAppRoundedIcon fontSize='small' />
             </ListItemIcon>

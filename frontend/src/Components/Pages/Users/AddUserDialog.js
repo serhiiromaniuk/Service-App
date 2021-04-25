@@ -13,7 +13,7 @@ import Switch from '@material-ui/core/Switch'
 import TextField from '@material-ui/core/TextField'
 import Tooltip from '@material-ui/core/Tooltip'
 import axios from 'axios'
-import { backend } from '../../Utils'
+import { api, opt } from '../../Utils'
  
 const initialUser = {
   username: '',
@@ -48,14 +48,19 @@ const AddUserDialog = props => {
   }
 
   const handleCreateUser = () => {
-    const url = backend.post.create_user
-    axios.post(url, {
+    const url = api.post.auth.user.create;
+    const data = {
       'username': user.username,
       'email':    user.email,
       'country':  user.country,
       'password': user.password
-    }).then((res) => console.log('RESPONSE DATA' + res.data))
-
+    };
+    axios.post(url, data, opt)
+      .then(
+        function(res) {
+          console.log('RESPONSE DATA' + res.data)
+        }
+      )
     setUser(initialUser)
   }
 

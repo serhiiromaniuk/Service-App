@@ -6,6 +6,8 @@ import Home from './components/Pages/Home'
 import About from './components/Pages/About'
 import Profile from './components/Pages/Profile'
 import Users from './components/Pages/Users';
+import Login from './components/Pages/NewAuth/Login';
+import { VerifyAuth, HandleLogin } from './components/Utils';
 
 function App() {
   return (
@@ -13,16 +15,19 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route exact path='/'>
-            <Home />
+            {VerifyAuth(Home)}
           </Route>
           <Route exact path='/users'>
-            <Users />
+            {VerifyAuth(Users)}
           </Route>
           <Route exact path='/about'>
-            <About />
+            {VerifyAuth(About)}
           </Route>
           <Route exact path='/profile'>
-            <Profile />
+            {VerifyAuth(Profile)}
+          </Route>
+          <Route exact path='/login'>
+            {HandleLogin(Login)}
           </Route>
         </Switch>
       </BrowserRouter>

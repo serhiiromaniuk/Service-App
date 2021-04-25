@@ -2,7 +2,7 @@ import React from "react";
 import './style.css';
 import data from './data';
 import AppPannel from '../../AppPannel';
-import { backend, GetUser } from '../../Utils'
+import { AlertMessage } from '../../Utils/alert';
 
 function Home() {
   return (
@@ -14,9 +14,7 @@ function Home() {
       </div>
       <div className="home-text">
         <p>{data.home_text}</p>
-        {
-         GetUser(backend.get.user_by_id + '121c3f85-a41b-4930-a994-9109fe85b7ca', 'email')
-        }
+        
       </div>
     </div>
   );

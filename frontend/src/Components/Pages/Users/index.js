@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import EnhancedTable from './EnhancedTable'
-import { backend } from '../../Utils'
+import { api, opt } from '../../Utils'
 import AppPannel from '../../AppPannel';
 
 const Users = () => {
@@ -55,18 +55,22 @@ const Users = () => {
   
   const [ data, setData ] = React.useState([]);
   const getData = () => {
-    axios.get(backend.get.list, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }
-    })
-      .then(function(res) {
-        return res
-      })
-      .then(function(data) {
-        setData(data.data)
-      });
+    axios.get(api.get.auth.user.list, opt)
+      .then(
+        function(res) {
+          return res;
+        }
+      )
+      .then(
+        function(data) {
+          setData(data.data);
+        }
+      ).catch(
+        function(error) {
+            console.log(error.response.data)
+            setData([]);
+        }
+      );
   }
 
   React.useEffect(() => {

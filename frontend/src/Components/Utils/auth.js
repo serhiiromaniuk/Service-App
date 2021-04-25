@@ -2,12 +2,20 @@ import axios from 'axios';
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
-const opt = {
+export const opt = {
     headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
     }
 };
+
+export function HandleLogin(Component) {
+    if (!!localStorage.getItem('auth_token')) {
+        return <Redirect to='/' />;
+    } else {
+        return <Component />;
+    }
+}
 
 export function VerifyAuth(Component, redirect) {
     if (!!localStorage.getItem('auth_token')) {
@@ -19,6 +27,7 @@ export function VerifyAuth(Component, redirect) {
 
 export function MakeLogin(token) {
     localStorage.setItem('auth_token', token);
+    window.location.href = '/';
 }
 
 export function MakeLogout() {

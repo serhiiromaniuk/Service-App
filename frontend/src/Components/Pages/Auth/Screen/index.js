@@ -1,7 +1,9 @@
+/* eslint-disable */ 
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import Login from '../Login';
+import Register from '../Register';
 
 const style = {
     margin: 15,
@@ -20,7 +22,7 @@ class Loginscreen extends Component {
     }
   }
 
-  componentWillMount(){
+  UNSAFE_componentWillMount(){
     var loginscreen=[];
     loginscreen.push(<Login parentContext={this} appContext={this.props.parentContext}/>);
     var loginmessage = "Not registered yet, Register Now";
@@ -66,7 +68,7 @@ class Loginscreen extends Component {
           <MuiThemeProvider>
             <div>
                <RaisedButton label={this.state.buttonLabel} primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
-           </div>
+            </div>
           </MuiThemeProvider>
         </div>
       </div>
