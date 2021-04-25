@@ -32,6 +32,7 @@ export function MakeLogin(token) {
 
 export function MakeLogout() {
     localStorage.removeItem('auth_token');
+    window.location.href = '/login';
 }
 
 export function GetUser(url, info) {

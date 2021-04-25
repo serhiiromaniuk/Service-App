@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import { register } from "./styles";
+import { LoginStyles } from "./styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -32,7 +32,7 @@ class Login extends Component {
       errorOpen: false
     };
     // this.delta = this.delta.bind(this);
-    this.submitRegistration = this.submitRegistration.bind(this);
+    this.submitLogin = this.submitLogin.bind(this);
   }
 
 
@@ -55,13 +55,17 @@ class Login extends Component {
   };
 
   isValid = () => {
-    if (this.state.email === "") {
+    if (this.state.email === "" || this.state.password === "" || this.state.passwordConfrim === "") {
       return false;
     }
     return true;
   };
 
-  submitRegistration = (e) => {
+  isValidRegister = () => {
+    return true;
+  };
+
+  submitLogin = (e) => {
     e.preventDefault();
     if (!this.passwordMatch()) {
       this.setState({
@@ -76,8 +80,7 @@ class Login extends Component {
         password: this.state.password
     };
     let externalState = this;
-    // email:      "testAXios@co.c",
-    // password:   "testHEre"
+
     axios.post(url, data, opt)
       .then(
         function(res) {
@@ -108,7 +111,7 @@ class Login extends Component {
 
           <form
             className={classes.form}
-            onSubmit={() => this.submitRegistration}
+            onSubmit={() => this.submitLogin}
           >
             <FormControl required fullWidth margin="normal">
               <InputLabel htmlFor="email" className={classes.labels}>
@@ -197,9 +200,21 @@ class Login extends Component {
               variant="outlined"
               className={classes.button}
               type="submit"
-              onClick={this.submitRegistration}
+              onClick={this.submitLogin}
             >
               Login
+            </Button>
+
+            <Button
+              // disabled={!this.isValidRegister()}
+              disableRipple
+              fullWidth
+              variant="outlined"
+              className={classes.register_button}
+              type="button"
+              onClick={() => {window.location.href = '/register'}}
+            >
+              Register
             </Button>
           </form>
 
@@ -243,4 +258,4 @@ class Login extends Component {
   }
 }
 
-export default withStyles(register)(Login);
+export default withStyles(LoginStyles)(Login);
