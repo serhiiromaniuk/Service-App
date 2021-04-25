@@ -30,7 +30,7 @@ type UserInfos struct {
 	UpdatedAndCreated
 
 	// Associations
-	Role []UserRoles `gorm:"many2many:user_permissions;foreignKey:Uuid;joinForeignKey:Uuid;References:RoleID;JoinReferences:RoleID" json:"role"`
+	Role []UserRoles `gorm:"many2many:user_permissions;foreignKey:Uuid;joinForeignKey:Uuid;References:RoleID;JoinReferences:RoleID" json:"roles"`
 	Org OrgOrganisations `gorm:"foreignKey:OrgID;" json:"-" binding:"-"`
 }
 
