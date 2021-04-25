@@ -68,13 +68,22 @@ func loginUser(c *gin.Context) {
 		Email:		req.Email,
 		Password:	req.Password }
 
-	result := db.Find(&userInfos, "email = ?", arg.Email)
+	dbData := &database.UserInfos{}
+	result := db.Find(dbData, "email = ?", arg.Email)
+
 	if result.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, errorHandler(result.Error))
+		c.JSON(http.StatusBadRequest, customErrorHandler("wrong email address"))//errorHandler(result.Error))
 		return
 	} else if result.RowsAffected > 1 {
-		c.JSON(http.StatusBadRequest, customMessageHandler("there are multiple mathes, aborting"))
+		c.JSON(http.StatusBadRequest, customErrorHandler("there are multiple responses, aborting"))
 		return
 	}
-	c.JSON(http.StatusOK, parseJsonInfo(userInfos))
+
+    err := verifyPassword(arg.Password, dbData.Password)
+    if err != nil {
+        c.JSON(http.StatusBadRequest, customErrorHandler("wrong password"))
+        return
+    }
+
+	c.JSON(http.StatusOK, gin.H{"ok": dbData.Uuid})
 }

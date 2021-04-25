@@ -47,6 +47,10 @@ function getUsers() {
             function(res) {
                 console.log(res.data)
             }
+        ).catch(
+            function(error) {
+                console.log(error.response.data)
+            }
         )
 } 
 // getUsers()
@@ -64,6 +68,10 @@ function createUser() {
             function(res) {
                 console.log(res.data)
             }
+        ).catch(
+            function(error) {
+                console.log(error.response.data)
+            }
         )
 } 
 
@@ -78,6 +86,10 @@ function testLogin() {
     axios.post(url, data, opt).then(
             function(res) {
                 console.log(res.data)
+            }
+        ).catch(
+            function(error) {
+                console.log(error.response.data)
             }
         )
 } 

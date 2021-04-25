@@ -40,17 +40,21 @@ func errorHandler(err error) gin.H {
 	return gin.H{"error": err.Error()}
 }
 
-func customErrorHandler(message string) {
-	resp := message + " has already registered"
-	c.JSON(http.StatusForbidden, gin.H{"error": resp})
+func customErrorHandler(message string) gin.H {
+	mes := MessageStatus{
+		Status: "failed",
+		Message: message }
+	return gin.H{mes.Status: mes.Message}
 }
 
-func customMessageHandler(message string) gin.H {
-	mes := MessageOk{
-		Status: "ok",
-		Message: message }
-	return gin.H{"failed" : mes}
-}
+// Rework
+// func customHandler(code int, status string, message string) (c gin.Context) {
+// 	mes := MessageStatus{
+// 		Status: status,
+// 		Message: message }
+// 	c.JSON(code, gin.H{mes.Status: mes.Message})
+// 	return
+// }
 
 func parseJsonInfo(data []database.UserInfos) (v interface{}) {
 	for _, v = range data {}
@@ -70,7 +74,7 @@ func verifyBind(req interface{}) {
 	}
 }
 
-type MessageOk struct {
+type MessageStatus struct {
     Status string
     Message string
 }

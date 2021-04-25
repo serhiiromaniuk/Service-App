@@ -33,7 +33,7 @@ func createBlockContainer(c *gin.Context) {
 	db.Transaction(func(tx *gorm.DB) error {
 		if err := tx.Create(&arg).Error; err != nil {
 			if err.(*mysql.MySQLError).Number == 1062 {
-				customErrorHandler("container")
+				c.JSON(http.StatusBadRequest, customErrorHandler("container has already registered"))
 			}
 			return err
 		} else {
