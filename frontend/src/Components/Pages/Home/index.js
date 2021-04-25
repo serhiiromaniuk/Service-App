@@ -4,7 +4,7 @@ import data from './data';
 import AppPannel from '../../AppPannel';
 import { AlertMessage } from '../../Utils/alert';
 
-function Home() {
+export default function Home() {
   return (
     <div>
       <AppPannel/>
@@ -20,4 +20,4 @@ function Home() {
   );
 }
 
-export default Home;
+
