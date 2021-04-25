@@ -27,7 +27,8 @@ func Server() {
     v1.GET("/auth/user/list", listUsers)
     
     v1.POST("/auth/user/create", createUser)
-  
+    v1.POST("/auth/user/login", loginUser)
+
   // Auth Orgs
     // v1.GET("/auth/get/:id", createOrg)
 

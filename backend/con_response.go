@@ -29,6 +29,11 @@ type customContainerResponse struct {
 	CreatedAt 	time.Time	`json:"created_at"`
 }
 
+type customLoginResponse struct {
+	Email     string    `json:"email" binding:"required,email"`
+	Password  string    `json:"password" binding:"required,min=6"`
+}
+
 func userResponse(user database.UserInfos) customUserResponse {
 	return customUserResponse{
 		Uuid:      user.Uuid,
@@ -37,6 +42,12 @@ func userResponse(user database.UserInfos) customUserResponse {
 		Country:   user.Country,
 		IsActive:  user.IsActive,
 		CreatedAt: user.CreatedAt }
+}
+
+func userLoginResponse(user customLoginResponse) customLoginResponse {
+	return customLoginResponse{
+		Email:     user.Email,
+		Password:  user.Password }
 }
 
 func orgResponse(org database.OrgOrganisations) customOrgResponse {

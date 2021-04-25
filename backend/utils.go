@@ -1,11 +1,12 @@
 package backend
 
 import (
+	// "encoding/json"
 	"fmt"
 	"net/http"
-	
-	"golang.org/x/crypto/bcrypt"
+
 	"github.com/gin-gonic/gin"
+	"golang.org/x/crypto/bcrypt"
 
 	"saas/backend/database"
 )
@@ -31,7 +32,7 @@ func hashPassword(password string) (string, error) {
 	return string(hashedPassword), nil
 }
 
-func CheckPassword(password string, hashedPassword string) error {
+func verifyPassword(password string, hashedPassword string) error {
 	return bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
 }
 
@@ -42,6 +43,13 @@ func errorHandler(err error) gin.H {
 func customErrorHandler(message string) {
 	resp := message + " has already registered"
 	c.JSON(http.StatusForbidden, gin.H{"error": resp})
+}
+
+func customMessageHandler(message string) gin.H {
+	mes := MessageOk{
+		Status: "ok",
+		Message: message }
+	return gin.H{"failed" : mes}
 }
 
 func parseJsonInfo(data []database.UserInfos) (v interface{}) {
@@ -60,4 +68,9 @@ func verifyBind(req interface{}) {
 		c.JSON(http.StatusBadRequest, errorHandler(err))
 		return
 	}
+}
+
+type MessageOk struct {
+    Status string
+    Message string
 }

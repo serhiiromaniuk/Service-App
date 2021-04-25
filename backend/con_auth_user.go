@@ -2,7 +2,6 @@ package backend
 
 import (
 	"net/http"
-
 	// === Error handling
 	"github.com/go-sql-driver/mysql"
 	// ===
@@ -12,9 +11,6 @@ import (
 	"gorm.io/gorm"
 )
 
-func ping(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{"message": "pong"})
-}
 
 func getUserById(c *gin.Context) {
 	uuid := c.Param("uuid")
@@ -27,20 +23,8 @@ func listUsers(c *gin.Context) {
 	c.JSON(http.StatusOK, userInfos)
 }
 
-func getBlockContainerById(c *gin.Context) {
-	id := c.Param("id")
-	db.First(&blockContainers, id)
-	c.JSON(http.StatusOK, parseBlockContainer(blockContainers))
-}
-
-func listBlockContainers(c *gin.Context) {
-	db.Find(&blockContainers)
-	c.JSON(http.StatusOK, blockContainers)
-}
-
 func createUser(c *gin.Context) {
 	var req database.UserInfos
-
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, errorHandler(err))
 		return
@@ -73,44 +57,24 @@ func createUser(c *gin.Context) {
 	})
 }
 
-func createOrg(c *gin.Context) {
-	var req database.OrgOrganisations
-	arg := database.OrgOrganisations{
-		OrgName:		req.OrgName,
-		OrgCountry:		req.OrgCountry }
+func loginUser(c *gin.Context) {
+	var req customLoginResponse
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, errorHandler(err))
+		return
+	}
 
-	verifyBind(&req)
+	arg := customLoginResponse{
+		Email:		req.Email,
+		Password:	req.Password }
 
-	// FIX
-	db.Transaction(func(tx *gorm.DB) error {
-		if err := tx.Create(&arg).Error; err != nil {
-			if err.(*mysql.MySQLError).Number == 1062 {
-				c.JSON(http.StatusForbidden, gin.H{"error": "organisation has already registered"})
-			}
-			return err
-		} else {
-			c.JSON(http.StatusOK, orgResponse(arg))
-			return nil
-		}
-	})
-}
-
-func createBlockContainer(c *gin.Context) {
-	var req database.BlockContainers
-	arg := database.BlockContainers{
-		Name:	req.Name,
-		Body:	req.Body }
-	verifyBind(&req)
-
-	db.Transaction(func(tx *gorm.DB) error {
-		if err := tx.Create(&arg).Error; err != nil {
-			if err.(*mysql.MySQLError).Number == 1062 {
-				customErrorHandler("container")
-			}
-			return err
-		} else {
-			c.JSON(http.StatusOK, containerResponse(arg))
-			return nil
-		}
-	})
+	result := db.Find(&userInfos, "email = ?", arg.Email)
+	if result.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, errorHandler(result.Error))
+		return
+	} else if result.RowsAffected > 1 {
+		c.JSON(http.StatusBadRequest, customMessageHandler("there are multiple mathes, aborting"))
+		return
+	}
+	c.JSON(http.StatusOK, parseJsonInfo(userInfos))
 }
