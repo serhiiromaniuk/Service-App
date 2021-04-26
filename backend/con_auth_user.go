@@ -13,8 +13,8 @@ import (
 
 
 func getUserById(c *gin.Context) {
-	uuid := c.Param("uuid")
-	db.Preload("Role").First(&userInfos, uuid)
+	uuid := c.Param("id")
+	db.Preload("Role").Find(&userInfos, "uuid = ?", uuid)
 	c.JSON(http.StatusOK, parseJsonInfo(userInfos))
 }
 

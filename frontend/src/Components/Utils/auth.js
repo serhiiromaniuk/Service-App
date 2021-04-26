@@ -35,56 +35,9 @@ export function MakeLogout() {
     window.location.href = '/login';
 }
 
-export function GetUser(url, info) {
-    const [ response, setResponse ] = React.useState([]);
-    
-    axios.get(url, opt).then(
-        function(res) {
-            if (res.status != '200') {
-                setResponse(res.data)
-            } else {
-                setResponse([
-                    'Some error occured, url: ' + 
-                    url
-                ])
-            }
-        }
-    );
-    
-    if (!!info) {
-        return response[info];
-    } else {
-        return response;
-    }
-}
-
-export function CreateUser(url, userdata, info) {
-    const [ respone, setResponse ] = React.useState([]);
-
-    if (!!userdata) {
-        axios.post(url, userdata, opt).then(
-            function(res) {
-                if (res.status != '200') {
-                    setResponse(res.data)
-                } else {
-                    setResponse([
-                        'Some error occured, url: ' + 
-                        url +
-                        ' userdata: ' + userdata])
-                }
-            } 
-        );
-    } else {
-        setResponse(
-            'Some error occured, url: ' + 
-            url +
-            ' userdata: ' + userdata)
-    }
-
-    if (!!info) {
-        return response[info];
-    } else {
-        return response;
+export function MakeReditect(to) {
+    if (!!localStorage.getItem('auth_token')) {
+        window.location.href = to;
     }
 }
 

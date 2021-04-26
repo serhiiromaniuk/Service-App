@@ -33,7 +33,7 @@ export default function AppPannel() {
             <CustomizedMenus />
           </IconButton>
           <Typography variant='h6'>
-            <b>Service board</b>
+            <b>Service App Board</b>
           </Typography>
         </Toolbar>
       </AppBar>

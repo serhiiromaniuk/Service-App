@@ -11,18 +11,18 @@ const linkStyle = {
 const StyledMenu = withStyles({
     paper: {
         border: '2px solid #00eccd',
-        marginLeft: '5px'
+        marginLeft: '-10px'
     },})((props) => (
     <Menu
         elevation={0}
         getContentAnchorEl={null}
         anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'center',
+            vertical: 'bottom',
+            horizontal: 'center',
         }}
         transformOrigin={{
-        vertical: 'top',
-        horizontal: 'center',
+            vertical: 'top',
+            horizontal: 'center',
         }}
         {...props}
     />

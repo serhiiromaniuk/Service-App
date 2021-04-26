@@ -3,14 +3,26 @@ import {
     MakeLogin,
     HandleLogin,
     MakeLogout,
-    GetUser,
-    CreateUser,
+    MakeReditect,
     opt
 } from './auth';
 
-const ENVIRONMENT = 'development';
-const api_url = process.env.BACKEND_URL || 'http://localhost:8000/api/v1/';
-const api = {
+import axios from 'axios';
+import React from 'react';
+import { Redirect } from 'react-router-dom';
+
+export {
+    VerifyAuth,
+    MakeLogin,
+    HandleLogin,
+    MakeLogout,
+    MakeReditect,
+    opt
+};
+
+export const ENVIRONMENT = 'development';
+export const api_url = process.env.BACKEND_URL || 'http://localhost:8000/api/v1/';
+export const api = {
     ping: api_url + 'ping', 
     get: {
         block: {
@@ -44,15 +56,33 @@ const api = {
     }
 };
 
-export {
-    ENVIRONMENT,
-    api_url,
-    api,
-    VerifyAuth,
-    MakeLogin,
-    HandleLogin,
-    MakeLogout,
-    GetUser,
-    CreateUser,
-    opt
+export const rolesMap = {
+    default: 'default',
+    manager: 'manager',
+    admin: 'admin',
+    owner: 'owner'
 };
+
+export function handlePermission(Component) {
+    if (!localStorage.getItem('auth_token')) {
+        return <Redirect to={Component} />;
+    } else {
+        const uuid = localStorage.getItem('auth_token');
+        const url = api.get.auth.user.uuid;
+
+        axios.get(url + uuid, opt).then(
+            function(res) {
+                if (res.data.roles[0].role === rolesMap.default) {
+                    // return window.location.href = '/';
+                } else {
+                    return <Redirect to={Component} />;
+                }
+            }
+        ).catch(
+            function(error) {
+                console.log(error.response.data)
+            }
+        );
+    }
+}
+

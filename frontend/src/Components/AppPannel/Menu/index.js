@@ -8,10 +8,11 @@ import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import HomeIcon from '@material-ui/icons/Home';
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { NavLink } from "react-router-dom";
 import { StyledMenu, StyledMenuItem, linkStyle} from './styles';
-import { MakeLogout } from '../../Utils'
+import { MakeLogout, MakeReditect, api, opt, rolesMap } from '../../Utils'
+import axios from 'axios';
 
 function CustomizedMenus() {
   const [anchorEl, setAnchorEl] = React.useState();
@@ -34,6 +35,28 @@ function CustomizedMenus() {
     MakeLogout()
   };
 
+  const handlePersmission = () => {
+    if (!localStorage.getItem('auth_token')) {
+      MakeReditect('/login')
+    } else {
+      const uuid = localStorage.getItem('auth_token');
+      const url = api.get.auth.user.uuid;
+      axios.get(url + uuid, opt).then(
+        function(res) {
+          if (res.data.roles[0].role === rolesMap.default) {
+            MakeReditect('/')
+          } else {
+            MakeReditect('/users')
+          }
+        }
+      ).catch(
+        function(error) {
+          console.log(error)
+        }
+      );
+    }
+  }
+  
   return (
     <div >
       <Button aria-controls='customized-menu' aria-haspopup='true' variant='contained' onClick={handleClick} >
