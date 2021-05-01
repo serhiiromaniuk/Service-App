@@ -11,7 +11,7 @@ import React from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import { NavLink } from "react-router-dom";
 import { StyledMenu, StyledMenuItem, linkStyle} from './styles';
-import { MakeLogout, MakeReditect, api, opt, rolesMap } from '../../Utils'
+import { MakeLogout, MakeReditect, api, opt, rolesMap, handlePermission } from '../../Utils'
 import axios from 'axios';
 
 function CustomizedMenus() {
@@ -34,28 +34,6 @@ function CustomizedMenus() {
     setAnchorEl(!anchorEl);
     MakeLogout()
   };
-
-  const handlePersmission = () => {
-    if (!localStorage.getItem('auth_token')) {
-      MakeReditect('/login')
-    } else {
-      const uuid = localStorage.getItem('auth_token');
-      const url = api.get.auth.user.uuid;
-      axios.get(url + uuid, opt).then(
-        function(res) {
-          if (res.data.roles[0].role === rolesMap.default) {
-            MakeReditect('/')
-          } else {
-            MakeReditect('/users')
-          }
-        }
-      ).catch(
-        function(error) {
-          console.log(error)
-        }
-      );
-    }
-  }
   
   return (
     <div >
@@ -73,7 +51,7 @@ function CustomizedMenus() {
           </StyledMenuItem>
         </NavLink>
 
-        <NavLink to='/users' style={linkStyle}>
+        <NavLink to='/users' style={linkStyle} onClick={() => { handlePermission('/users') }} >
           <StyledMenuItem onClick={handleClose}>
               <ListItemIcon >
                 <PeopleAltIcon fontSize='small' />

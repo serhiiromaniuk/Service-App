@@ -1,24 +1,6 @@
-import {
-    VerifyAuth,
-    MakeLogin,
-    HandleLogin,
-    MakeLogout,
-    MakeReditect,
-    opt
-} from './auth';
-
 import axios from 'axios';
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-
-export {
-    VerifyAuth,
-    MakeLogin,
-    HandleLogin,
-    MakeLogout,
-    MakeReditect,
-    opt
-};
 
 export const ENVIRONMENT = 'development';
 export const api_url = process.env.BACKEND_URL || 'http://localhost:8000/api/v1/';
@@ -63,9 +45,9 @@ export const rolesMap = {
     owner: 'owner'
 };
 
-export function handlePermission(Component) {
+export function handlePermission(properUrl) {
     if (!localStorage.getItem('auth_token')) {
-        return <Redirect to={Component} />;
+        MakeReditect('/')
     } else {
         const uuid = localStorage.getItem('auth_token');
         const url = api.get.auth.user.uuid;
@@ -73,9 +55,9 @@ export function handlePermission(Component) {
         axios.get(url + uuid, opt).then(
             function(res) {
                 if (res.data.roles[0].role === rolesMap.default) {
-                    // return window.location.href = '/';
+                    MakeReditect('/error');
                 } else {
-                    return <Redirect to={Component} />;
+                    MakeReditect(properUrl);
                 }
             }
         ).catch(
@@ -83,6 +65,47 @@ export function handlePermission(Component) {
                 console.log(error.response.data)
             }
         );
+    }
+}
+
+export const opt = {
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+    }
+};
+
+export function HandleLogin(Component) {
+    if (!!localStorage.getItem('auth_token')) {
+        return <Redirect to='/' />;
+    } else {
+        return <Component />;
+    }
+}
+
+export function VerifyAuth(Component, redirect) {
+    if (!!localStorage.getItem('auth_token')) {
+        return <Component />;
+    } else {
+        return <Redirect to={redirect || '/login'} />;
+    }
+}
+
+export function MakeLogin(token) {
+    localStorage.setItem('auth_token', token);
+    window.location.href = '/';
+}
+
+export function MakeLogout() {
+    localStorage.removeItem('auth_token');
+    window.location.href = '/login';
+}
+
+export function MakeReditect(to) {
+    if (!!localStorage.getItem('auth_token')) {
+        window.location = to;
+    } else {
+        window.location = '/login';
     }
 }
 

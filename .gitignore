@@ -30,3 +30,7 @@ yarn-error.log*
 
 ## Template
 go-gin-app
+
+## Terraform
+**/*terraform*
+**/*tfstate*
