@@ -49,14 +49,21 @@ export function handlePermission(properUrl, permission = rolesMap.default) {
     const auth_token = JSON.parse(localStorage.getItem('auth_token'));
     const uuid = auth_token.token;
     const url = api.get.auth.user.uuid;
-    console.log(auth_token);
 
     if (!auth_token) {
         makeReditect('/login')
     } else {
         axios.get(url + uuid, opt).then(
             function(res) {
-                if (res.data.roles[0].role === permission) {
+                let arr = [];
+                for (var key in rolesMap) {
+                    arr.push(rolesMap[key]);
+                }
+                
+                const map = arr.slice(arr.indexOf(permission)); 
+                const userRole = res.data.roles[0].role;
+
+                if (map.includes(userRole)) {
                     makeReditect(properUrl);
                 } else {
                     makeReditect('/error');
