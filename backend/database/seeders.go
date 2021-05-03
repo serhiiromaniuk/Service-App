@@ -11,26 +11,26 @@ import (
 )
 
 type RolesMap struct {
-	common  string
+	def  string
 	manager string
 	admin   string
 	owner   string
 }
 
 var UserRolesMap = &RolesMap{
-	common:  "common",
+	def:  "default",
 	manager: "manager",
 	admin:   "admin",
 	owner:   "owner"}
 
-var SetDefault = &UserRoles{Role: UserRolesMap.common}
+var SetDefault = &UserRoles{Role: UserRolesMap.def}
 var SetManager = &UserRoles{Role: UserRolesMap.manager}
 var SetAdmin = &UserRoles{Role: UserRolesMap.admin}
 var SetOwner = &UserRoles{Role: UserRolesMap.owner}
 
 var (
 	userroles_seeder = []UserRoles{
-	{	Role: "common" },
+	{	Role: "default" },
 	{	Role: "manager" },
 	{	Role: "admin" },
 	{	Role: "owner" }}
@@ -133,7 +133,7 @@ func SeedDb() {
 	})
 
 	// Update
-	DB.Model(&UserRoles{}).Where("id", 1).Update("role", "default")
+	// DB.Model(&UserRoles{}).Where("id", 1).Update("role", "default")
 	
 
 	log.Println("=====> Seeders ended")

@@ -17,6 +17,13 @@ export const api = {
             user: {
                 uuid: api_url + 'auth/user/get/',
                 list: api_url + 'auth/user/list'
+            },
+            role: {
+                list: api_url + 'auth/role/list'
+            },
+            org: {
+                id: api_url + 'auth/org/get/',
+                list: api_url + 'auth/org/list'
             }
         }
     },
@@ -39,21 +46,21 @@ export const api = {
 };
 
 export const rolesMap = {
-    default: 'default',
-    manager: 'manager',
-    admin: 'admin',
-    owner: 'owner'
+    default: 1,
+    manager: 2,
+    admin: 3,
+    owner: 4
 };
 
 export function handlePermission(properUrl, permission = rolesMap.default) {
     const auth_token = JSON.parse(localStorage.getItem('auth_token'));
     const uuid = auth_token.token;
-    const url = api.get.auth.user.uuid;
+    const urlUser = api.get.auth.user.uuid;
 
     if (!auth_token) {
         makeReditect('/login')
     } else {
-        axios.get(url + uuid, opt).then(
+        axios.get(urlUser + uuid, opt).then(
             function(res) {
                 let arr = [];
                 for (var key in rolesMap) {
@@ -61,7 +68,7 @@ export function handlePermission(properUrl, permission = rolesMap.default) {
                 }
                 
                 const map = arr.slice(arr.indexOf(permission)); 
-                const userRole = res.data.roles[0].role;
+                const userRole = res.data.role_id;
 
                 if (map.includes(userRole)) {
                     makeReditect(properUrl);

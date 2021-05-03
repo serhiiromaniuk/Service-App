@@ -11,7 +11,7 @@ type IdModel struct {
 
 type UpdatedAndCreated struct {
 	CreatedAt time.Time `gorm:"not null" json:"created_at"`
-	UpdatedAt time.Time `gorm:"not null" json:"-"`
+	UpdatedAt time.Time `gorm:"not null" json:"updated_at"`
 }
 
 type UserRoles struct {
@@ -38,8 +38,8 @@ type UserInfos struct {
 
 type OrgOrganisations struct {
 	IdModel
-	OrgName		string `gorm:"not null;unique" json:"org_name" binding:"required,alphanum"`
-	OrgCountry	string `gorm:"default:UA" json:"org_country" binding:"required"`
+	OrgName		string `gorm:"not null;unique" json:"org_name" binding:"required"`
+	OrgCountry	string `gorm:"not null" json:"org_country" binding:"required"`
 	UpdatedAndCreated
 
 	// Associacions

@@ -36,6 +36,7 @@ func Server() {
     v1.POST("/auth/org/create", createOrg)
 
   // Auth Roles
+    v1.GET("/auth/role/list", listUserRoles)
     // v1.POST("/auth/create/rolebinding", CreateUser("default"))
 	}
 

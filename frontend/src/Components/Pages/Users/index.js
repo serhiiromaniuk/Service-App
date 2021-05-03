@@ -43,12 +43,12 @@ const Users = () => {
             Header: 'Created At',
             accessor: 'created_at',
           },
-          // {
-          //   Header: 'Role',
-          //   accessor: 'role',
-          // }
-        ],
-      },
+          {
+            Header: 'Role Id',
+            accessor: 'role_id',
+          }
+        ]
+      }
     ],
     []
   )
@@ -106,7 +106,7 @@ const Users = () => {
         skipPageReset={skipPageReset}
       />
     </div>
-  )
+  );
 }
 
 export default Users;

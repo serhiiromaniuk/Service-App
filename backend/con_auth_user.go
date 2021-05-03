@@ -14,13 +14,18 @@ import (
 
 func getUserById(c *gin.Context) {
 	uuid := c.Param("id")
-	db.Preload("Role").Find(&userInfos, "uuid = ?", uuid)
+	db.Find(&userInfos, "uuid = ?", uuid)
 	c.JSON(http.StatusOK, parseJsonInfo(userInfos))
 }
 
 func listUsers(c *gin.Context) {
-	db.Preload("Role").Find(&userInfos)
+	db.Find(&userInfos)
 	c.JSON(http.StatusOK, userInfos)
+}
+
+func listUserRoles(c *gin.Context) {
+	db.Find(&userRoles)
+	c.JSON(http.StatusOK, userRoles)
 }
 
 func createUser(c *gin.Context) {

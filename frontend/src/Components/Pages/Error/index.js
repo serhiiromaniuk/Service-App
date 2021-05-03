@@ -7,7 +7,7 @@ export default function Error() {
     <div>
       <AppPannel/>
       <CustomTitle text='Restricted access or page does not exist' />
-      <CustomParagraph text='You do not have proper permissions. Check you role or contact your instance administrator.' />
+      <CustomParagraph text='You do not have proper permissions. Check your role or contact your instance administrator.' />
     </div>
   );
 }

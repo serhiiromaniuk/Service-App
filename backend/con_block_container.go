@@ -28,7 +28,10 @@ func createBlockContainer(c *gin.Context) {
 	arg := database.BlockContainers{
 		Name:	req.Name,
 		Body:	req.Body }
-	verifyBind(&req)
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, errorHandler(err))
+		return
+	}
 
 	db.Transaction(func(tx *gorm.DB) error {
 		if err := tx.Create(&arg).Error; err != nil {

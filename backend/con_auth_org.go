@@ -29,7 +29,10 @@ func createOrg(c *gin.Context) {
 		OrgName:		req.OrgName,
 		OrgCountry:		req.OrgCountry }
 
-	verifyBind(&req)
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, errorHandler(err))
+		return
+	}
 
 	// FIX
 	db.Transaction(func(tx *gorm.DB) error {
