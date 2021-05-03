@@ -1,7 +1,7 @@
 import React from 'react'
 
 import AddOrgDialog from './AddOrgDialog'
-import AddBlockContDialog from './AddBlockContDialog'
+// import AddBlockContDialog from './AddBlockContDialog'
 import clsx from 'clsx'
 import DeleteIcon from '@material-ui/icons/Delete'
 import GlobalFilter from './GlobalFilter'
@@ -16,6 +16,7 @@ const useToolbarStyles = makeStyles(theme => ({
   root: {
     paddingLeft: theme.spacing(),
     paddingRight: theme.spacing(),
+    marginLeft: theme.spacing(150),
   },
   highlight:
     theme.palette.type === 'light'
@@ -68,8 +69,12 @@ const TableToolbar = props => {
               {numSelected} selected
             </Typography>
           )}
-    
-          {numSelected > 0 ? (
+            <GlobalFilter
+              preGlobalFilteredRows={preGlobalFilteredRows}
+              globalFilter={globalFilter}
+              setGlobalFilter={setGlobalFilter}
+            />
+          {/* {numSelected > 0 ? (
             <Tooltip title="Delete">
               <IconButton aria-label="delete" onClick={deleteUserHandler}>
                 <DeleteIcon />
@@ -81,7 +86,7 @@ const TableToolbar = props => {
               globalFilter={globalFilter}
               setGlobalFilter={setGlobalFilter}
             />
-          )}
+          )} */}
         </Toolbar>
       );
     } else if ( selectedTable === 'blocks') {
@@ -91,7 +96,7 @@ const TableToolbar = props => {
             [classes.highlight]: numSelected > 0,
           })}
         >
-          <AddBlockContDialog addHandler={addHandler} />
+          {/* <AddBlockContDialog addHandler={addHandler} /> */}
           {numSelected > 0 ? (
             <Typography
               className={classes.title}
@@ -109,8 +114,12 @@ const TableToolbar = props => {
               {numSelected} selected
             </Typography>
           )}
-    
-          {numSelected > 0 ? (
+            <GlobalFilter
+              preGlobalFilteredRows={preGlobalFilteredRows}
+              globalFilter={globalFilter}
+              setGlobalFilter={setGlobalFilter}
+            />
+          {/* {numSelected > 0 ? (
             <Tooltip title="Delete">
               <IconButton aria-label="delete" onClick={deleteUserHandler}>
                 <DeleteIcon />
@@ -122,7 +131,7 @@ const TableToolbar = props => {
               globalFilter={globalFilter}
               setGlobalFilter={setGlobalFilter}
             />
-          )}
+          )} */}
         </Toolbar>
       );
     } else if ( selectedTable === 'roles') {
@@ -137,7 +146,6 @@ const TableToolbar = props => {
               className={classes.title}
               color="inherit"
               variant="h6"
-              marginLeft="10px"
             >
               {numSelected} selected
             </Typography>
@@ -151,7 +159,12 @@ const TableToolbar = props => {
             </Typography>
           )}
     
-          {numSelected > 0 ? (
+            <GlobalFilter
+              preGlobalFilteredRows={preGlobalFilteredRows}
+              globalFilter={globalFilter}
+              setGlobalFilter={setGlobalFilter}
+            />
+          {/* {numSelected > 0 ? (
             <Tooltip title="Delete">
               <IconButton aria-label="delete" onClick={deleteUserHandler}>
                 <DeleteIcon />
@@ -163,7 +176,7 @@ const TableToolbar = props => {
               globalFilter={globalFilter}
               setGlobalFilter={setGlobalFilter}
             />
-          )}
+          )} */}
         </Toolbar>
       );
     }

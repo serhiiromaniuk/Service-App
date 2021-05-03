@@ -90,15 +90,6 @@ function CustomizedMenus() {
           </StyledMenuItem>
         </NavLink>
 
-        <NavLink to='/' style={linkStyle}>
-          <StyledMenuItem onClick={handleClose}>
-            <ListItemIcon >
-              <DashboardRoundedIcon fontSize='small' />
-            </ListItemIcon>
-              <ListItemText primary='Todo' />
-          </StyledMenuItem>
-        </NavLink>
-
         <NavLink to='/login' style={linkStyle}>
           <StyledMenuItem onClick={handleCloseLogout}>
             <ListItemIcon >
