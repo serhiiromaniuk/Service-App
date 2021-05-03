@@ -1,12 +1,15 @@
 import Button from '@material-ui/core/Button';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ContactsRoundedIcon from '@material-ui/icons/ContactsRounded';
 import DashboardRoundedIcon from '@material-ui/icons/DashboardRounded';
 import InfoIcon from '@material-ui/icons/Info';
 import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import HomeIcon from '@material-ui/icons/Home';
+import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
+
 import React from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import { NavLink } from "react-router-dom";
@@ -60,7 +63,7 @@ function CustomizedMenus() {
           </StyledMenuItem>
         </NavLink>
 
-        <NavLink to='/users' style={linkStyle} onClick={() => { handlePermission('/users') }} >
+        <NavLink to='/users' style={linkStyle} onClick={() => { handlePermission('/users', rolesMap.manager) }} >
           <StyledMenuItem onClick={handleClose}>
               <ListItemIcon >
                 <PeopleAltIcon fontSize='small' />
@@ -69,10 +72,10 @@ function CustomizedMenus() {
           </StyledMenuItem>
         </NavLink>
 
-        <NavLink to='/organisation' style={linkStyle} onClick={() => { handlePermission('/users') }} >
+        <NavLink to='/organisation' style={linkStyle} onClick={() => { handlePermission('/organisation', rolesMap.admin) }} >
           <StyledMenuItem onClick={handleClose}>
               <ListItemIcon >
-                <PeopleAltIcon fontSize='small' />
+                <SupervisedUserCircleIcon fontSize='small' />
               </ListItemIcon>
               <ListItemText primary='Organisation' />
           </StyledMenuItem>

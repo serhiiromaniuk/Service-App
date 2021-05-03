@@ -46,19 +46,20 @@ export const rolesMap = {
 };
 
 export function handlePermission(properUrl, permission = rolesMap.default) {
-    const auth_token = localStorage.getItem('auth_token');
-    if (!auth_token) {
-        makeReditect('/')
-    } else {
-        const uuid = auth_token.token;
-        const url = api.get.auth.user.uuid;
+    const auth_token = JSON.parse(localStorage.getItem('auth_token'));
+    const uuid = auth_token.token;
+    const url = api.get.auth.user.uuid;
+    console.log(auth_token);
 
+    if (!auth_token) {
+        makeReditect('/login')
+    } else {
         axios.get(url + uuid, opt).then(
             function(res) {
                 if (res.data.roles[0].role === permission) {
-                    makeReditect('/error');
-                } else {
                     makeReditect(properUrl);
+                } else {
+                    makeReditect('/error');
                 }
             }
         ).catch(
@@ -87,10 +88,11 @@ export function handleLogin(Component) {
 
 export function verifyAuth(Component, redirect) {
     const auth_token = localStorage.getItem('auth_token');
-    const now = new Date()
+    const now = new Date();
+    const token = JSON.parse(auth_token);
 
     if (!!auth_token) {
-        if (now.getTime() > auth_token.expire) {
+        if (now.getTime() > token.expire) {
             localStorage.removeItem('auth_token')
             return <Redirect to={redirect || '/login'} />;
         } else {
@@ -101,15 +103,15 @@ export function verifyAuth(Component, redirect) {
     }
 }
 
-export function makeLogin(token, ttl = 3600) {
-    const now = new Date()
-
+export function makeLogin(tkn, ttl) {
+    const now = new Date();
+    const time = ttl || 3600E+3; // miliseconds
     const auth_token = {
-        value: token,
-        expire: now.getTime() + ttl
-    }
+        token: tkn,
+        expire: now.getTime() + time
+    };
 
-    localStorage.setItem('auth_token', auth_token);
+    localStorage.setItem('auth_token', JSON.stringify(auth_token));
     window.location = '/';
 }
 
@@ -119,11 +121,11 @@ export function makeLogout() {
 }
 
 export function makeReditect(to) {
-    const auth_token = !!localStorage.getItem('auth_token');
+    const auth_token = localStorage.getItem('auth_token');
     if (auth_token) {
-        window.location = to;
+        window.location.href = to;
     } else {
-        window.location = '/login';
+        window.location.href = '/login';
     }
 }
 
