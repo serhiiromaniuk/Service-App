@@ -16,7 +16,7 @@ const useToolbarStyles = makeStyles(theme => ({
   root: {
     paddingLeft: theme.spacing(),
     paddingRight: theme.spacing(),
-    marginLeft: theme.spacing(150),
+    marginLeft: theme.spacing(150)
   },
   highlight:
     theme.palette.type === 'light'

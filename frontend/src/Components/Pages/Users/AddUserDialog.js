@@ -82,7 +82,7 @@ const AddUserDialog = props => {
       >
         <DialogTitle id="form-dialog-title">Add User</DialogTitle>
         <DialogContent>
-          <DialogContentText>Add user info</DialogContentText>
+          <DialogContentText>Fill user information</DialogContentText>
           <TextField
             margin="dense"
             label="Username"
