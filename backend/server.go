@@ -31,6 +31,7 @@ func Server() {
 
   // Auth Orgs
     v1.GET("/auth/org/list", listOrgs)
+    v1.GET("/auth/org/get/:id", getOrgById)
 
     v1.POST("/auth/org/create", createOrg)
 

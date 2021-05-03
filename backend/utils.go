@@ -67,6 +67,11 @@ func parseBlockContainer(data []database.BlockContainers) (v interface{}) {
 	return 
 }
 
+func parseOrgOrganisation(data []database.OrgOrganisations) (v interface{}) {
+	for _, v = range data {}
+	return 
+}
+
 func verifyBind(req interface{}) {
 	var c *gin.Context
 	if err := c.ShouldBindJSON(&req); err != nil {

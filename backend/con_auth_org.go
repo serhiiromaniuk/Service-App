@@ -12,6 +12,12 @@ import (
 	"gorm.io/gorm"
 )
 
+func getOrgById(c *gin.Context) {
+	id := c.Param("id")
+	db.First(&orgOrgs, id)
+	c.JSON(http.StatusOK, parseOrgOrganisation(orgOrgs))
+}
+
 func listOrgs(c *gin.Context) {
 	db.Find(&orgOrgs)
 	c.JSON(http.StatusOK, orgOrgs)
