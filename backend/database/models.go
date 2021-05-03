@@ -15,14 +15,15 @@ type UpdatedAndCreated struct {
 }
 
 type UserRoles struct {
-	RoleID int    `gorm:"primarykey;not null" json:"-"`
-	Role   string `gorm:"not null;" json:"role"`
+	IdModel
+	Role   string `gorm:"not null;unique" json:"role" binding:"-"`
 }
 
 type UserInfos struct {
 	Uuid      uuid.UUID `gorm:"primarykey;not null;" json:"uuid"`
 	UserName  string    `gorm:"not null" json:"username" binding:"required,alphanum"`
 	OrgID	  int 		`gorm:"default:null" json:"org_id"`
+	RoleID 	  int 		`gorm:"default:1" json:"role_id"`
 	Email     string    `gorm:"not null;unique" json:"email" binding:"required,email"`
 	Country   string    `gorm:"default:null" json:"country" binding:"required"`
 	IsActive  bool      `gorm:"default:true;not null" json:"active"`
@@ -30,9 +31,9 @@ type UserInfos struct {
 	UpdatedAndCreated
 
 	// Associations
-	Role []UserRoles `gorm:"many2many:user_permissions;foreignKey:Uuid;joinForeignKey:Uuid;References:RoleID;JoinReferences:RoleID" json:"roles"`
-	Org OrgOrganisations `gorm:"foreignKey:OrgID;" json:"-" binding:"-"`
-	CountryCode CommonCountries `gorm:"foreignKey:Country;" json:"-" binding:"-"`
+	RoleMap UserRoles `gorm:"foreignKey:RoleID;" json:"-" binding:"-"`
+	OrgMap OrgOrganisations `gorm:"foreignKey:OrgID;" json:"-" binding:"-"`
+	CountryMap CommonCountries `gorm:"foreignKey:Country;" json:"-" binding:"-"`
 }
 
 type OrgOrganisations struct {

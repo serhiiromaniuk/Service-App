@@ -50,7 +50,6 @@ func createUser(c *gin.Context) {
 			}
 			return err
 		} else {
-			tx.Model(&arg).Association("Role").Append(database.SetDefault)
 			c.JSON(http.StatusOK, userResponse(arg))
 			return nil
 		}

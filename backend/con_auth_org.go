@@ -12,6 +12,11 @@ import (
 	"gorm.io/gorm"
 )
 
+func listOrgs(c *gin.Context) {
+	db.Find(&orgOrgs)
+	c.JSON(http.StatusOK, orgOrgs)
+}
+
 func createOrg(c *gin.Context) {
 	var req database.OrgOrganisations
 	arg := database.OrgOrganisations{

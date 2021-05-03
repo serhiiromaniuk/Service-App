@@ -11,29 +11,30 @@ import (
 )
 
 type RolesMap struct {
-	common  int
-	manager int
-	admin   int
-	owner   int
+	common  string
+	manager string
+	admin   string
+	owner   string
 }
 
 var UserRolesMap = &RolesMap{
-	common:  1,
-	manager: 2,
-	admin:   3,
-	owner:   4}
+	common:  "common",
+	manager: "manager",
+	admin:   "admin",
+	owner:   "owner"}
 
-var SetDefault = &UserRoles{RoleID: UserRolesMap.common}
-var SetManager = &UserRoles{RoleID: UserRolesMap.manager}
-var SetAdmin = &UserRoles{RoleID: UserRolesMap.admin}
-var SetOwner = &UserRoles{RoleID: UserRolesMap.owner}
+var SetDefault = &UserRoles{Role: UserRolesMap.common}
+var SetManager = &UserRoles{Role: UserRolesMap.manager}
+var SetAdmin = &UserRoles{Role: UserRolesMap.admin}
+var SetOwner = &UserRoles{Role: UserRolesMap.owner}
 
 var (
 	userroles_seeder = []UserRoles{
-		{RoleID: 1, Role: "common"},
-		{RoleID: 2, Role: "manager"},
-		{RoleID: 3, Role: "admin"},
-		{RoleID: 4, Role: "owner"}}
+	{	Role: "common" },
+	{	Role: "manager" },
+	{	Role: "admin" },
+	{	Role: "owner" }}
+
 
 	user_org = []OrgOrganisations{
 		{
@@ -53,7 +54,7 @@ var (
 			UserName:	"super_user",
 			Email:		"test2@super.co",
 			Country:	"US",
-			Password:	"test"}}
+			Password:	"test" }}
 )
 
 func SeedDb() {
@@ -107,15 +108,12 @@ func SeedDb() {
 	DB.Transaction(func(tx *gorm.DB) error {
 		if err := tx.Create(&default_user).Error; err != nil {
 			if err.(*mysql.MySQLError).Number == 1062 {
-				log.Println("==> Already present")
+				log.Println("==> `default_user` already present")
 			}
 			return err
 		}
-		tx.Model(&default_user).Association("Org").Append(&OrgOrganisations{
-			IdModel:           IdModel{
-				ID: 1 },
-		})
-		tx.Model(&default_user).Association("Role").Append(SetDefault)
+		tx.Model(&default_user).Association("OrgMap").Append(&OrgOrganisations{ IdModel: IdModel{ ID: 1 } })
+		tx.Model(&default_user).Association("RoleMap").Append(&UserRoles{ IdModel: IdModel{ ID: 1 } })
 		return nil
 	})
 
@@ -128,14 +126,15 @@ func SeedDb() {
 		}
 		tx.Model(&super_user).Association("Org").Append(&OrgOrganisations{
 			IdModel:           IdModel{
-				ID: 1,
-			},
+				ID: 1 },
 		})
-		tx.Model(&super_user).Association("Role").Append(SetOwner)
+		tx.Model(&super_user).Association("Role").Append(SetDefault)
 		return nil
 	})
 
 	// Update
-	DB.Model(&UserRoles{}).Where("role_id", 1).Update("role", "default")
+	DB.Model(&UserRoles{}).Where("id", 1).Update("role", "default")
+	
+
 	log.Println("=====> Seeders ended")
 }

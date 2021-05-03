@@ -20,6 +20,7 @@ var (
 	db        		= database.DB
 	userInfos 		= []database.UserInfos{}
 	userRoles 		= []database.UserRoles{}
+	orgOrgs         = []database.OrgOrganisations{}
 	blockContainers = []database.BlockContainers{}
 	c 		  		= &gin.Context{}
 )
