@@ -19,7 +19,7 @@ export default function AppPannel() {
   const classes = useStyles();
   const colors = {
     appBar: {
-      background: '#07D6A8',
+      background: 'linear-gradient(to right, #336ec2, #07D6A8)',
       border: '1px solid #ffffff'
     },
     title: {

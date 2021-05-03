@@ -38,7 +38,7 @@ function CustomizedMenus() {
     makeLogout()
   };
   const menuButtonStyles = {
-      background: 'linear-gradient(45deg, #70a2ff 30%, #336ec2 90%)',
+      background: 'linear-gradient(45deg, #336ec2 10%, #07D6A8 100%)',
       border: '1px solid #ffffff',
       marginLeft: '-10px',
       boxShadow: '3px 3px 3px 0 rgba(69, 90, 100, 0.9)',
@@ -48,7 +48,7 @@ function CustomizedMenus() {
   return (
     <div >
       <Button style={menuButtonStyles} aria-controls='customized-menu' aria-haspopup='true' variant='contained' onClick={handleClick} >
-        Menu
+        <p style={{color: 'white'}}>Menu</p>
       </Button>
 
       <StyledMenu id='customized-menu' anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>

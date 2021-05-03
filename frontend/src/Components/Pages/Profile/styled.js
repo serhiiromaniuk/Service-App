@@ -12,6 +12,14 @@ export const StyledProfile = () => {
         'avatar_man_brown'
     ];
     const auth_token = JSON.parse(localStorage.getItem('auth_token'));
+    const now = new Date();
+    var item = 0;
+    if (auth_token.expire > now) {
+        item = (auth_token.expire - now) / 1E+3 / 60;
+    } else {
+        item = 0;
+    }
+
     const uuid = auth_token.token;
     const urlUser = api.get.auth.user.uuid;
     const [ data, setData ] = React.useState([]);
@@ -30,10 +38,9 @@ export const StyledProfile = () => {
                 }
             );
         }
-    }
-  
-    React.useEffect(() => { getData() },[])
-
+    };
+    React.useEffect(() => { getData() },[]);
+    
     return (
         <div className="page-content page-container" id="page-content">
         <div className="padding">
@@ -50,40 +57,37 @@ export const StyledProfile = () => {
                                         >
                                         </img>     
                                         <h1 className="f-w-600 name">{data.username}</h1>
-
-                                        <p>Web Designer</p> <i className=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                                         
+                                        <p>
+                                            UUID: {data.uuid}
+                                            <br></br>
+                                            Session: {parseFloat(item).toFixed(2)} minutes left
+                                        </p>
+                                
                                     </div>
                                 </div>
                             </div>
                             <div className="col-sm-8">
                                 <div className="card-block">
-                                    <h6 className="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
+                                    <h3 className="m-b-20 p-b-5 b-b-default f-w-600">Information</h3>
                                     <div className="row">
                                         <div className="col-sm-6">
                                             <p className="m-b-10 f-w-600">Email</p>
-                                            <h6 className="text-muted f-w-400">rntng@gmail.com</h6>
+                                            <h6 className="text-muted f-w-400">{data.email}</h6>
                                         </div>
                                         <div className="col-sm-6">
-                                            <p className="m-b-10 f-w-600">Phone</p>
-                                            <h6 className="text-muted f-w-400">98979989898</h6>
+                                            <p className="m-b-10 f-w-600">Country</p>
+                                            <h6 className="text-muted f-w-400">{data.country}</h6>
+                                        </div>
+                                        <div className="col-sm-6">
+                                            <p className="m-b-10 f-w-600">Organisation Id</p>
+                                            <h6 className="text-muted f-w-400">{data.org_id}</h6>
+                                        </div>
+                                        <div className="col-sm-6">
+                                            <p className="m-b-10 f-w-600">Role Id</p>
+                                            <h6 className="text-muted f-w-400">{data.role_id}</h6>
                                         </div>
                                     </div>
-                                    <h6 className="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Projects</h6>
-                                    <div className="row">
-                                        <div className="col-sm-6">
-                                            <p className="m-b-10 f-w-600">Recent</p>
-                                            <h6 className="text-muted f-w-400">Sam Disuja</h6>
-                                        </div>
-                                        <div className="col-sm-6">
-                                            <p className="m-b-10 f-w-600">Most Viewed</p>
-                                            <h6 className="text-muted f-w-400">Dinoter husainm</h6>
-                                        </div>
-                                    </div>
-                                    <ul className="social-link list-unstyled m-t-40 m-b-10">
-                                        <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="facebook" data-abc="true"><i className="mdi mdi-facebook feather icon-facebook facebook" aria-hidden="true"></i></a></li>
-                                        <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="twitter" data-abc="true"><i className="mdi mdi-twitter feather icon-twitter twitter" aria-hidden="true"></i></a></li>
-                                        <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="instagram" data-abc="true"><i className="mdi mdi-instagram feather icon-instagram instagram" aria-hidden="true"></i></a></li>
-                                    </ul>
                                 </div>
                             </div>
                         </div>
