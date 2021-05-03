@@ -15,10 +15,11 @@ func Uuid() uuid.UUID {
 
 func MigratreDb() {
 	Models := []interface{}{
+		&CommonCountries{},
+		&BlockContainers{},
 		&UserRoles{},
 		&OrgOrganisations{},
-		&UserInfos{},
-		&BlockContainers{}}
+		&UserInfos{} }
 
 	log.Printf("=====> Starting migrations")
 	for _, model := range Models {

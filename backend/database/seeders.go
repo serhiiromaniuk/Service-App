@@ -6,6 +6,8 @@ import (
 	"github.com/go-sql-driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
+	"encoding/json"
+	"io/ioutil"
 )
 
 type RolesMap struct {
@@ -36,7 +38,7 @@ var (
 	user_org = []OrgOrganisations{
 		{
 			OrgName: "Test Org",
-			OrgCountry: "Ua"}}
+			OrgCountry: "UA"}}
 
 	default_user = []UserInfos{
 		{
@@ -56,6 +58,36 @@ var (
 
 func SeedDb() {
 	log.Print("=====> Starting seeders")
+
+	// Common Countries
+	var countryArray []CommonCountries
+	filePath := "backend/database/countries.json"
+	countries, err := ioutil.ReadFile(filePath)
+	if err != nil {
+		log.Printf( "=====> Error while reading file %s\n", filePath )
+		log.Printf("File error: %v\n", err)
+	}
+
+	err = json.Unmarshal(countries, &countryArray)
+	if err != nil {
+	  log.Println("error:", err)
+	}
+  
+	log.Println("=====> Filling CommonCountries")
+	for k := range countryArray {
+		DB.Transaction(func(tx *gorm.DB) error {
+			if err := tx.Create(CommonCountries{
+				Name: countryArray[k].Name,
+				Code: countryArray[k].Code }).Error; err != nil {
+					if err.(*mysql.MySQLError).Number == 1062 {
+						return nil
+					}
+					log.Println("=====> Some error occured ", err)
+					return err
+			}
+			return nil
+		})
+	}
 
 	// Roles
 	DB.Clauses(clause.OnConflict{DoNothing: true}).Create(&userroles_seeder)
@@ -81,8 +113,7 @@ func SeedDb() {
 		}
 		tx.Model(&default_user).Association("Org").Append(&OrgOrganisations{
 			IdModel:           IdModel{
-				ID: 1,
-			},
+				ID: 1 },
 		})
 		tx.Model(&default_user).Association("Role").Append(SetDefault)
 		return nil
@@ -103,7 +134,7 @@ func SeedDb() {
 		tx.Model(&super_user).Association("Role").Append(SetOwner)
 		return nil
 	})
-	
+
 	// Update
 	DB.Model(&UserRoles{}).Where("role_id", 1).Update("role", "default")
 	log.Println("=====> Seeders ended")

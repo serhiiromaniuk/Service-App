@@ -17,7 +17,7 @@ import VisibilityOffTwoToneIcon from "@material-ui/icons/VisibilityOffTwoTone";
 import CloseIcon from "@material-ui/icons/Close";
 import axios from 'axios';
 
-import { api, opt, MakeLogin } from '../../Utils'
+import { api, opt, makeLogin } from '../../Utils'
 
 class Register extends Component {
   constructor(props) {
@@ -93,7 +93,7 @@ class Register extends Component {
     axios.post(url, data, opt)
       .then(
         function(res) {
-          MakeLogin(res.data.uuid)
+          makeLogin(res.data.uuid)
         }
       ).catch(
         function(err) {

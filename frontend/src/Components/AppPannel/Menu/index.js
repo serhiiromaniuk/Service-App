@@ -11,7 +11,7 @@ import React from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import { NavLink } from "react-router-dom";
 import { StyledMenu, StyledMenuItem, linkStyle} from './styles';
-import { MakeLogout, MakeReditect, api, opt, rolesMap, handlePermission } from '../../Utils'
+import { makeLogout, makeReditect, api, opt, rolesMap, handlePermission } from '../../Utils'
 import axios from 'axios';
 
 function CustomizedMenus() {
@@ -32,7 +32,7 @@ function CustomizedMenus() {
 
   const handleCloseLogout = () => {
     setAnchorEl(!anchorEl);
-    MakeLogout()
+    makeLogout()
   };
   
   return (
@@ -51,6 +51,15 @@ function CustomizedMenus() {
           </StyledMenuItem>
         </NavLink>
 
+        <NavLink to='/profile' style={linkStyle}>
+          <StyledMenuItem onClick={handleClose}>
+              <ListItemIcon >
+                <ContactsRoundedIcon fontSize='small' />
+              </ListItemIcon>
+              <ListItemText primary='Profile' />
+          </StyledMenuItem>
+        </NavLink>
+
         <NavLink to='/users' style={linkStyle} onClick={() => { handlePermission('/users') }} >
           <StyledMenuItem onClick={handleClose}>
               <ListItemIcon >
@@ -60,12 +69,12 @@ function CustomizedMenus() {
           </StyledMenuItem>
         </NavLink>
 
-        <NavLink to='/profile' style={linkStyle}>
+        <NavLink to='/organisation' style={linkStyle} onClick={() => { handlePermission('/users') }} >
           <StyledMenuItem onClick={handleClose}>
               <ListItemIcon >
-                <ContactsRoundedIcon fontSize='small' />
+                <PeopleAltIcon fontSize='small' />
               </ListItemIcon>
-              <ListItemText primary='Profile' />
+              <ListItemText primary='Organisation' />
           </StyledMenuItem>
         </NavLink>
 

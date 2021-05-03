@@ -6,9 +6,10 @@ import About from './components/Pages/About'
 import Profile from './components/Pages/Profile'
 import Users from './components/Pages/Users';
 import Error from './components/Pages/Error';
+import Organisation from './components/Pages/Organisation';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
-import { VerifyAuth, HandleLogin } from './components/Utils';
+import { verifyAuth, handleLogin } from './components/Utils';
 
 export default class App extends React.Component {
   render() {
@@ -16,26 +17,40 @@ export default class App extends React.Component {
       <div>
         <BrowserRouter>
           <Switch>
+            {
+              // Main Pages 
+            }
             <Route exact path='/'>
-              {VerifyAuth(Home)}
+              {verifyAuth(Home)}
             </Route>
             <Route exact path='/users'>
-              {VerifyAuth(Users)}
+              {verifyAuth(Users)}
             </Route>
             <Route exact path='/about'>
-              {VerifyAuth(About)}
+              {verifyAuth(About)}
             </Route>
             <Route exact path='/profile'>
-              {VerifyAuth(Profile)}
+              {verifyAuth(Profile)}
             </Route>
+            <Route exact path='/organisation'>
+              {verifyAuth(Organisation)}
+            </Route>
+
+            {
+              // Auth Pages 
+            }
             <Route exact path='/login'>
-              {HandleLogin(Login)}
+              {handleLogin(Login)}
             </Route>
             <Route exact path='/register'>
-              {HandleLogin(Register)}
+              {handleLogin(Register)}
             </Route>
-            <Route exact path='/Error'>
-              {VerifyAuth(Error)}
+
+            {
+              // Middlware Pages 
+            }
+            <Route exact path='/error'>
+              {verifyAuth(Error)}
             </Route>
           </Switch>
         </BrowserRouter>
