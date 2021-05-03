@@ -2,6 +2,7 @@ import 'bulma/css/bulma.min.css';
 import './style.css';
 import React from 'react';
 
+import Button from '@material-ui/core/Button';
 import { ThemeProvider, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -22,13 +23,16 @@ function DeepChild() {
 
   return (
     <button type="button" className={classes.root}>
-      Theming
+      Menu
     </button>
   );
 }
 
 const themeInstance = {
-  background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+  background: 'linear-gradient(45deg, #70a2ff 30%, #336ec2 90%)',
+  border: '5px solid #ffffff',
+  marginLeft: '-10px',
+  boxShadow: '0 10px 20px 0 rgba(69, 90, 100, 0.9)'
 };
 
 export function StyledButton() {

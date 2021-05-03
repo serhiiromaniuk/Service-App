@@ -4,7 +4,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import EnhancedTable from './EnhancedTable';
 import { api, opt } from '../../Utils';
 import AppPannel from '../../AppPannel';
-import { CustomTitle, CustomParagraph } from '../../Pages/Styles';
+import { CustomTitle, CustomParagraph } from '../../Styles';
 
 const Organisation = () => {
   const orgColumns = React.useMemo(

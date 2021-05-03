@@ -14,8 +14,8 @@ import React from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import { NavLink } from "react-router-dom";
 import { StyledMenu, StyledMenuItem, linkStyle} from './styles';
+import { StyledButton } from '../../Styles'
 import { makeLogout, makeReditect, api, opt, rolesMap, handlePermission } from '../../Utils'
-import axios from 'axios';
 
 function CustomizedMenus() {
   const [anchorEl, setAnchorEl] = React.useState();
@@ -37,10 +37,17 @@ function CustomizedMenus() {
     setAnchorEl(!anchorEl);
     makeLogout()
   };
-  
+  const menuButtonStyles = {
+      background: 'linear-gradient(45deg, #70a2ff 30%, #336ec2 90%)',
+      border: '1px solid #ffffff',
+      marginLeft: '-10px',
+      boxShadow: '3px 3px 3px 0 rgba(69, 90, 100, 0.9)',
+      width: '100px'
+  };
+
   return (
     <div >
-      <Button aria-controls='customized-menu' aria-haspopup='true' variant='contained' onClick={handleClick} >
+      <Button style={menuButtonStyles} aria-controls='customized-menu' aria-haspopup='true' variant='contained' onClick={handleClick} >
         Menu
       </Button>
 

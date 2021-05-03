@@ -19,7 +19,8 @@ export default function AppPannel() {
   const classes = useStyles();
   const colors = {
     appBar: {
-      background: '#00eccd'
+      background: '#07D6A8',
+      border: '1px solid #ffffff'
     },
     title: {
       color: '#00000'

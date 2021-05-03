@@ -1,5 +1,5 @@
 import React from "react";
-import { CustomTitle, CustomParagraph } from '../Styles';
+import { CustomTitle, CustomParagraph } from '../../Styles';
 import data from './data';
 import AppPannel from '../../AppPannel';
 

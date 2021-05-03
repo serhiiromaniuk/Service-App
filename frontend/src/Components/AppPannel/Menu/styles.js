@@ -10,8 +10,9 @@ const linkStyle = {
   
 const StyledMenu = withStyles({
     paper: {
-        border: '2px solid #00eccd',
-        marginLeft: '-10px'
+        border: '5px solid #ffffff',
+        marginLeft: '-10px',
+        boxShadow: '0 10px 20px 0 rgba(69, 90, 100, 0.9)'
     },})((props) => (
     <Menu
         elevation={0}
@@ -31,10 +32,10 @@ const StyledMenu = withStyles({
 const StyledMenuItem = withStyles((theme) => ({
     root: {
         '&:focus': {
-        backgroundColor: '#00eccd',
-        '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
-            color: theme.palette.common.white,
-        }
+            background: 'linear-gradient(45deg, #70a2ff 30%, #336ec2 90%)',
+        '&.MuiListItemIcon-root, & .MuiListItemText-primary': {
+                color: 'linear-gradient(45deg, #70a2ff 30%, #336ec2 90%)'
+            }
         }
     }
 }))(MenuItem);

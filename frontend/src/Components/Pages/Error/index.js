@@ -1,6 +1,6 @@
 import React from "react";
 import AppPannel from '../../AppPannel';
-import { CustomTitle, CustomParagraph } from '../Styles';
+import { CustomTitle, CustomParagraph } from '../../Styles';
 
 export default function Error() {
   return (
