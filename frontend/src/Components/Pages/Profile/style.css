@@ -15,6 +15,7 @@ body {
 
 .user-card-full {
     overflow: hidden;
+    margin-left: 20%;
 }
 
 .card {

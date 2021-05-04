@@ -20,14 +20,14 @@ type UserRoles struct {
 }
 
 type UserInfos struct {
-	Uuid      uuid.UUID `gorm:"primarykey;not null;" json:"uuid"`
-	UserName  string    `gorm:"not null" json:"username" binding:"required,alphanum"`
+	Uuid      uuid.UUID `gorm:"primarykey;not null;size:36;" json:"uuid"`
+	UserName  string    `gorm:"not null;size:128;" json:"username" binding:"required,alphanum"`
 	OrgID	  int 		`gorm:"default:null" json:"org_id"`
 	RoleID 	  int 		`gorm:"default:1" json:"role_id"`
 	Email     string    `gorm:"not null;unique" json:"email" binding:"required,email"`
-	Country   string    `gorm:"default:null" json:"country" binding:"required"`
+	Country   string    `gorm:"default:null;size:4" json:"country" binding:"required"`
 	IsActive  bool      `gorm:"default:true;not null" json:"active"`
-	Password  string    `gorm:"not null" json:"password" binding:"required,min=6"`
+	Password  string    `gorm:"not null;size:256" json:"password" binding:"required,min=6"`
 	UpdatedAndCreated
 
 	// Associations
@@ -39,7 +39,7 @@ type UserInfos struct {
 type OrgOrganisations struct {
 	IdModel
 	OrgName		string `gorm:"not null;unique" json:"org_name" binding:"required"`
-	OrgCountry	string `gorm:"not null" json:"org_country" binding:"required"`
+	OrgCountry	string `gorm:"not null;size:4" json:"org_country" binding:"required"`
 	UpdatedAndCreated
 
 	// Associacions
@@ -48,9 +48,13 @@ type OrgOrganisations struct {
 
 type BlockContainers struct {
 	IdModel
+	Owner				uuid.UUID `gorm:"default:null" json:"owner"`
 	Name				string `gorm:"not null;unique" json:"name" binding:"required"`
 	Body				string `gorm:"default:null" json:"body"`
 	UpdatedAndCreated
+
+	// Associacions
+	UserMap UserInfos `gorm:"foreignKey:Owner;" json:"-" binding:"-"`
 }
 
 type CommonCountries struct {

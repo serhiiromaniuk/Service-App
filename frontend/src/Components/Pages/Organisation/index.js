@@ -208,9 +208,6 @@ const Organisation = () => {
       <CssBaseline/>
 
       <CustomTitle text='Organisations' />
-      <div className="home-title">
-            <h1 className="title is1">Organisations</h1>
-      </div>
       <EnhancedTable
         columns={orgColumns}
         data={orgData}

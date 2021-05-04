@@ -6,15 +6,15 @@ import './style.css';
 import _ from 'lodash';
 
 function renderCard(times) {
-    let card = [];
+    let cards = [];
     _.times(times, () => {
-        card.push(
+        cards.push(
             <div className="column">
                 <CustomCard/>
             </div>
         );
     });
-    return card;
+    return cards;
 }
 
 export default function ContainerCard() {

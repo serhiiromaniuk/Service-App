@@ -8,8 +8,8 @@ import Users from './components/Pages/Users';
 import Error from './components/Pages/Error';
 import Organisation from './components/Pages/Organisation';
 import ContainerCard from './components/Pages/Container';
-import Login from './components/Auth/Login';
-import Register from './components/Auth/Register';
+import Login from './components/Pages/Auth/Login';
+import Register from './components/Pages/Auth/Register';
 import { verifyAuth, handleLogin } from './components/Utils';
 
 export default class App extends React.Component {

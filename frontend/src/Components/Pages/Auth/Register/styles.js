@@ -25,9 +25,9 @@ export const LoginStyles = theme => ({
     marginTop: theme.spacing(2),
     padding: `${theme.spacing(2)}px ${theme.spacing(1)}px`,
     display: "flex",
+    border: '1.5px solid #ffffff',
     flexDirection: "column",
     alignItems: "center",
-    border: '1.5px solid #ffffff',
     background:
       "linear-gradient(180deg, rgba(0, 236, 205, 1) 100%, rgba(255,255,255,0.3) 0%)",
     boxShadow: ".2px 12px 18px rgba(131,153,167,0.6)",
@@ -39,7 +39,7 @@ export const LoginStyles = theme => ({
   avatar: {
     marginTop: 20,
     position: "relative",
-    background: "rgba(255,255,255,1)",
+    background: "rgba(255,255,255, 0.6)",
     width: "100px",
     height: "100px",
     boxShadow: "0px 0px 12px rgba(131,153,167,0.99)"
@@ -127,8 +127,9 @@ export const LoginStyles = theme => ({
       color: orange
     },
     "&:hover": {
-      background: "rgba(255, 255, 255, 0.4)",
-      color: textDark
+      background: "linear-gradient(45deg, #336ec2 10%, #07D6A8 100%)",
+      color: textDark,
+      fontWeight: 800
     }
   },
   button: {
@@ -174,8 +175,9 @@ export const LoginStyles = theme => ({
       transition: "transform cubic-bezier(0.85,.36,.8,.42) .2s"
     },
     "&:hover": {
-      background: "rgba(255, 255, 255, 0.4)",
-      color: textDark
+      background: "linear-gradient(45deg, #336ec2 10%, #07D6A8 100%)",
+      color: textDark,
+      fontWeight: 800
     }
   },
   error: {

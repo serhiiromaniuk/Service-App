@@ -22,7 +22,7 @@ func PackageApp() {
         ScreenHight,
         webview.HintNone )
 
-	window.Navigate("http://localhost:8080/")
+	window.Navigate("http://127.0.0.1:3000")
 	window.Run()
     backend.Server()
 }
