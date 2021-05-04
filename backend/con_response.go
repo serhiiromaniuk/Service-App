@@ -23,7 +23,8 @@ type customOrgResponse struct {
 }
 
 type customContainerResponse struct {
-	ID 			int			`json:"container_id"` 
+	ID 			int			`json:"id"`
+	Owner		string		`json:"owner"` 
 	Name		string		`json:"name"`
 	Body		string		`json:"body"`
 	CreatedAt 	time.Time	`json:"created_at"`
@@ -60,6 +61,8 @@ func orgResponse(org database.OrgOrganisations) customOrgResponse {
 func containerResponse(container database.BlockContainers) customContainerResponse {
 	return customContainerResponse{
 		ID:		container.ID,
+		Owner:	container.Owner,
 		Name:	container.Name,
-		Body:	container.Body }
+		Body:	container.Body,
+		CreatedAt: container.CreatedAt }
 }

@@ -48,9 +48,9 @@ type OrgOrganisations struct {
 
 type BlockContainers struct {
 	IdModel
-	Owner				uuid.UUID `gorm:"default:null" json:"owner"`
-	Name				string `gorm:"not null;unique" json:"name" binding:"required"`
-	Body				string `gorm:"default:null" json:"body"`
+	Owner				string `gorm:"default:null;size:36" json:"owner" binding:"required"`
+	Name				string `gorm:"not null;" json:"name" binding:"required"`
+	Body				string `gorm:"not null;" json:"body" binding:"required"`
 	UpdatedAndCreated
 
 	// Associacions

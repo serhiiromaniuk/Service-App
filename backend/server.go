@@ -18,7 +18,8 @@ func Server() {
 
   // Blocks
     v1.GET("/block/container/list", listBlockContainers)
-    v1.GET("/block/container/get/:id", getBlockContainerById)
+    v1.GET("/block/container/get/id/:id", getBlockContainerById)
+    v1.GET("/block/container/get/owner/:id", getBlockContainerByOwner)
 
     v1.POST("/block/container/create", createBlockContainer)
 
