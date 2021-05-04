@@ -3,9 +3,8 @@
 .home-title,
 .home-text {
     text-align: center;
-    font-family: 'Quicksand', sans-serif;
     font-weight: 700;
-    font-style: normal;
+    /* font-style: normal; */
     font-size: larger;
     margin-top: 5%;
     line-height: 1.15;
@@ -16,4 +15,9 @@
 
 .home-title {
     margin-bottom: 2%;
+}
+
+html {
+    font-family: 'Quicksand', sans-serif;
+    background-color: #fafafa;
 }
