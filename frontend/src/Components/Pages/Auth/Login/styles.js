@@ -42,7 +42,7 @@ export const LoginStyles = theme => ({
     background: "rgba(255,255,255, 0.6)",
     width: "100px",
     height: "100px",
-    boxShadow: "0px 0px 12px rgba(131,153,167,0.99)"
+    boxShadow: "0px 0px 12px rgba(131,153,167,0.99)",
   },
 
   icon: {
@@ -86,7 +86,7 @@ export const LoginStyles = theme => ({
     background: "rgba(255,255,255,.45)",
     position: "relative",
     fontWeight: 400,
-    fontFamily: "Raleway, sans-serif",
+    // fontFamily: "Raleway, sans-serif",
     overflow: "hidden",
     marginTop: theme.spacing(3),
     padding: `${theme.spacing(1.6)}px`,
@@ -131,6 +131,12 @@ export const LoginStyles = theme => ({
       color: textDark,
       fontWeight: 800
     }
+  },
+  text: {
+    fontWeight: 500,
+    fontFamily: "Raleway, sans-serif",
+    textAlign: 'center',
+    fontSize: 'larger'
   },
   button: {
     color: textDark,

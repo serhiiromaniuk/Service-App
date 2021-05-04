@@ -132,6 +132,12 @@ export const LoginStyles = theme => ({
       fontWeight: 800
     }
   },
+  text: {
+    fontWeight: 500,
+    fontFamily: "Raleway, sans-serif",
+    textAlign: 'center',
+    fontSize: 'larger'
+  },
   button: {
     color: textDark,
     background: "rgba(255,255,255,.45)",

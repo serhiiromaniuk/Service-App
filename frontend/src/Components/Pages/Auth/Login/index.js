@@ -119,7 +119,9 @@ class Login extends Component {
             className={classes.form}
             onSubmit={() => this.submitLogin}
           >
-            <CustomParagraph text='Login into Service App'/>
+            <div className={classes.text}>
+              <p>Login into Service App</p>
+            </div>
             <FormControl required fullWidth margin="normal">
               <InputLabel htmlFor="email" className={classes.labels}>
                 Email Address

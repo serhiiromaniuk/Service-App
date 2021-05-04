@@ -128,7 +128,9 @@ class Register extends Component {
             className={classes.form}
             onSubmit={() => this.submitRegister}
           >
-            <CustomParagraph text='Register in Service App'/>
+            <div className={classes.text}>
+              <p>Service App Sign Up</p>
+            </div>
             <FormControl required fullWidth margin="normal">
               <InputLabel htmlFor="email" className={classes.labels}>
                 User Name
