@@ -3,19 +3,18 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ContactsRoundedIcon from '@material-ui/icons/ContactsRounded';
-import DashboardRoundedIcon from '@material-ui/icons/DashboardRounded';
 import InfoIcon from '@material-ui/icons/Info';
 import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import HomeIcon from '@material-ui/icons/Home';
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
+import ListAltIcon from '@material-ui/icons/ListAlt';
 
 import React from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { NavLink } from "react-router-dom";
 import { StyledMenu, StyledMenuItem, linkStyle} from './styles';
-import { StyledButton } from '../../Styles'
-import { makeLogout, makeReditect, api, opt, rolesMap, handlePermission } from '../../Utils'
+import { makeLogout, rolesMap, handlePermission } from '../../Utils'
 
 function CustomizedMenus() {
   const [anchorEl, setAnchorEl] = React.useState();
@@ -67,6 +66,15 @@ function CustomizedMenus() {
                 <ContactsRoundedIcon fontSize='small' />
               </ListItemIcon>
               <ListItemText primary='Profile' />
+          </StyledMenuItem>
+        </NavLink>
+
+        <NavLink to='/container' style={linkStyle}>
+          <StyledMenuItem onClick={handleClose}>
+              <ListItemIcon >
+                <ListAltIcon fontSize='small' />
+              </ListItemIcon>
+              <ListItemText primary='Containers' />
           </StyledMenuItem>
         </NavLink>
 

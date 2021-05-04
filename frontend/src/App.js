@@ -7,6 +7,7 @@ import Profile from './components/Pages/Profile'
 import Users from './components/Pages/Users';
 import Error from './components/Pages/Error';
 import Organisation from './components/Pages/Organisation';
+import ContainerCard from './components/Pages/Container';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import { verifyAuth, handleLogin } from './components/Utils';
@@ -34,6 +35,9 @@ export default class App extends React.Component {
             </Route>
             <Route exact path='/organisation'>
               {verifyAuth(Organisation)}
+            </Route>
+            <Route exact path='/container'>
+              {verifyAuth(ContainerCard)}
             </Route>
 
             {
