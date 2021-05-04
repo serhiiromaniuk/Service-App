@@ -52,6 +52,13 @@ export const rolesMap = {
     owner: 4
 };
 
+export const rolesList = [
+    'default',
+    'manager',
+    'admin',
+    'owner'
+];
+
 export function handlePermission(properUrl, permission = rolesMap.default) {
     const auth_token = JSON.parse(localStorage.getItem('auth_token'));
     const uuid = auth_token.token;

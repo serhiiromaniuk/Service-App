@@ -25,6 +25,7 @@ export const LoginStyles = theme => ({
     marginTop: theme.spacing(2),
     padding: `${theme.spacing(2)}px ${theme.spacing(1)}px`,
     display: "flex",
+    border: '1.5px solid #ffffff',
     flexDirection: "column",
     alignItems: "center",
     background:

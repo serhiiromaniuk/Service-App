@@ -1,6 +1,6 @@
 import React from 'react';
 import './style.css';
-import { api, opt } from '../../Utils';
+import { api, opt, rolesList } from '../../Utils';
 import axios from 'axios';
 
 export const StyledProfile = () => {
@@ -85,7 +85,7 @@ export const StyledProfile = () => {
                                         </div>
                                         <div className="col-sm-6">
                                             <p className="m-b-10 f-w-600">Role Id</p>
-                                            <h6 className="text-muted f-w-400">{data.role_id}</h6>
+                                            <h6 className="text-muted f-w-400">{data.role_id} - {rolesList[data.role_id]}</h6>
                                         </div>
                                     </div>
                                 </div>

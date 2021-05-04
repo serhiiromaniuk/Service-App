@@ -27,6 +27,7 @@ export const LoginStyles = theme => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    border: '1.5px solid #ffffff',
     background:
       "linear-gradient(180deg, rgba(0, 236, 205, 1) 100%, rgba(255,255,255,0.3) 0%)",
     boxShadow: ".2px 12px 18px rgba(131,153,167,0.6)",
