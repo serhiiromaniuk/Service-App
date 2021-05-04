@@ -15,7 +15,7 @@ export const LoginStyles = theme => ({
     display: "block",
     width: "auto",
     [theme.breakpoints.up(400 + theme.spacing(2))]: {
-      width: 400,
+      width: 500,
       marginLeft: "auto",
       marginRight: "auto"
     }

@@ -18,6 +18,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import axios from 'axios';
 
 import { api, opt, makeLogin } from '../../../Utils'
+import { CustomParagraph } from '../../../Styles';
 
 class Login extends Component {
   constructor(props) {
@@ -28,6 +29,7 @@ class Login extends Component {
       password: "",
       passwordConfrim: "",
       hidePassword: true,
+      hidePasswordConfirm: true,
       error: null,
       errorOpen: false
     };
@@ -52,6 +54,10 @@ class Login extends Component {
 
   showPassword = () => {
     this.setState(prevState => ({ hidePassword: !prevState.hidePassword }));
+  };
+
+  showPasswordConfirm = () => {
+    this.setState(prevState => ({ hidePasswordConfirm: !prevState.hidePasswordConfirm }));
   };
 
   isValid = () => {
@@ -108,11 +114,12 @@ class Login extends Component {
           <Avatar className={classes.avatar}>
             <PeopleAltIcon className={classes.icon} />
           </Avatar>
-
+         
           <form
             className={classes.form}
             onSubmit={() => this.submitLogin}
           >
+            <CustomParagraph text='Login into Service App'/>
             <FormControl required fullWidth margin="normal">
               <InputLabel htmlFor="email" className={classes.labels}>
                 Email Address
@@ -171,14 +178,14 @@ class Login extends Component {
                 disableUnderline={true}
                 onClick={this.state.showPassword}
                 onChange={this.handleChange("passwordConfrim")}
-                type={this.state.hidePassword ? "password" : "input"}
+                type={this.state.hidePasswordConfirm ? "password" : "input"}
                 endAdornment={
-                  this.state.hidePassword ? (
+                  this.state.hidePasswordConfirm ? (
                     <InputAdornment position="end">
                       <VisibilityOffTwoToneIcon
                         fontSize="default"
                         className={classes.passwordEye}
-                        onClick={this.showPassword}
+                        onClick={this.showPasswordConfirm}
                       />
                     </InputAdornment>
                   ) : (
@@ -186,7 +193,7 @@ class Login extends Component {
                       <VisibilityTwoToneIcon
                         fontSize="default"
                         className={classes.passwordEye}
-                        onClick={this.showPassword}
+                        onClick={this.showPasswordConfirm}
                       />
                     </InputAdornment>
                   )

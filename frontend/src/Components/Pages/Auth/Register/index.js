@@ -17,6 +17,7 @@ import VisibilityOffTwoToneIcon from "@material-ui/icons/VisibilityOffTwoTone";
 import CloseIcon from "@material-ui/icons/Close";
 import axios from 'axios';
 
+import { CustomParagraph } from '../../../Styles';
 import { api, opt, makeLogin } from '../../../Utils'
 
 class Register extends Component {
@@ -127,6 +128,7 @@ class Register extends Component {
             className={classes.form}
             onSubmit={() => this.submitRegister}
           >
+            <CustomParagraph text='Register in Service App'/>
             <FormControl required fullWidth margin="normal">
               <InputLabel htmlFor="email" className={classes.labels}>
                 User Name

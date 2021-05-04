@@ -9,7 +9,8 @@ export const api = {
     get: {
         block: {
             container: {
-                id: api_url + 'block/container/get/',
+                id: api_url + 'block/container/get/id/',
+                owner: api_url + 'block/container/get/owner/',
                 list: api_url + 'block/container/list'
             }
         },
@@ -126,7 +127,7 @@ export function verifyAuth(Component, redirect) {
 
 export function makeLogin(tkn, ttl) {
     const now = new Date();
-    const time = ttl || 3600E+3; // miliseconds
+    const time = ttl || 7200E+3; // miliseconds
     const auth_token = {
         token: tkn,
         expire: now.getTime() + time
@@ -147,6 +148,16 @@ export function makeReditect(to) {
         window.location.href = to;
     } else {
         window.location.href = '/login';
+    }
+}
+
+export function getUserData() {
+    const auth_token = JSON.parse(localStorage.getItem('auth_token'));
+
+    if (!auth_token) {
+        makeReditect('/login')
+    } else {
+        return auth_token;
     }
 }
 

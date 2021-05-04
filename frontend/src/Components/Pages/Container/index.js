@@ -2,30 +2,57 @@ import React from 'react';
 import AppPannel from '../../AppPannel';
 import { CustomTitle } from '../../Styles';
 import CustomCard from './card';
+import AddContainer from './addContainer';
+import { api, opt, getUserData } from '../../Utils'
 import './style.css';
 import _ from 'lodash';
-
-function renderCard(times) {
-    let cards = [];
-    _.times(times, () => {
-        cards.push(
-            <div className="column">
-                <CustomCard/>
-            </div>
-        );
-    });
-    return cards;
-}
+import axios from 'axios';
 
 export default function ContainerCard() {
-  return (
-    <div>
-        <AppPannel/>
-        <CustomTitle text='Your Containers' />
+    const [ data, setData ] = React.useState([]);
+    
+    function getContainers() {
+        const url = api.get.block.container.owner;
+        const auth_token = getUserData();
+    
+        axios.get(url + auth_token.token, opt).then(
+            function(res) {
+                setData(res.data);
+            }
+        ).catch(
+            function(error) {
+                console.log(error);
+            }
+        );
+    }
+    React.useEffect(() => { getContainers() },[]);
 
-        <div className="row">
-            {renderCard(13)}
+    function renderCard() {
+        let cards = [];
+        for (let index = 0; index < data.length; index++) {
+            const element = data[index];
+            cards.push(
+                <div className="column">
+                    <CustomCard
+                        containerName={element.name}
+                        containerBody={element.body}
+                        containerCreatedAt={element.created_at}
+                    />
+                </div>
+            );
+        }
+        return cards;
+    }
+    
+    return (
+        <div>
+            <AppPannel/>
+            <CustomTitle text='Your Containers' />
+            <AddContainer/>
+
+            <div className="row">
+                {renderCard()}
+            </div>
         </div>
-    </div>
-  );
+    );
 }
