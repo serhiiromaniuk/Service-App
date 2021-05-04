@@ -57,7 +57,6 @@ export const StyledProfile = () => {
                                         >
                                         </img>     
                                         <h1 className="f-w-600 name">{data.username}</h1>
-                                         
                                         <p>
                                             UUID: {data.uuid}
                                             <br></br>

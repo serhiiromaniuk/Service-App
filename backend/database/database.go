@@ -10,5 +10,5 @@ func InitDatabase() {
 	}
 
 	MigratreDb()
-	// SeedDb()
+	SeedDb()
 }

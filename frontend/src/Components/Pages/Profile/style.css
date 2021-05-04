@@ -1,14 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
 
-* {
-    font-family: 'Quicksand', sans-serif;
-}
-
-body {
-    background-color: #f9f9fa
-}
-
-
 .padding {
     padding: 3rem !important
 }
@@ -114,8 +105,8 @@ body {
 }
 .name {
     margin-top: -150px;
-    margin-left: 200px;
-    font-size: 4vw;
+    margin-left: 50px;
+    font-size: 3vw;
     color: rgb(58, 56, 56);
 }
 
