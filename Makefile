@@ -1,5 +1,4 @@
 
-####################################################################################
 .PHONY: all
 all: clean build-backend build-frontend open
 backend: clean build-backend
@@ -31,7 +30,16 @@ package-app:
 	@open ./saas.app
 	@echo "[✔️] App is running!"
 
-####################################################################################
+release:
+	@echo APP_VERSION=${APP_VERSION}
+	@git checkout ${APP_VERSION}
+	@export OS_TYPE=$(uname -s)
+	@export OS_ARCH=$(uname -m)
+	@go build -o releases/${APP_VERSION}_be_${OS_TYPE}_${OS_ARCH} main.go
+	@cd frontend && yarn build && zip -r ../releases/${APP_VERSION}_fe_$(uname -s)_$(uname -m) build/ && cd ..
+	@ls -la releases
+	@git checkout master
+
 db-compose:
 	@docker-compose --env-file .env down -v
 	@docker-compose --env-file .env up -d mysql
