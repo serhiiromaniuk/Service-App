@@ -62,33 +62,39 @@ export const rolesList = [
 
 export function handlePermission(properUrl, permission = rolesMap.default) {
     const auth_token = JSON.parse(localStorage.getItem('auth_token'));
-    const uuid = auth_token.token;
+    const token = auth_token.token;
+    const now = new Date();
     const urlUser = api.get.auth.user.uuid;
-
+    
     if (!auth_token) {
         makeReditect('/login')
     } else {
-        axios.get(urlUser + uuid, opt).then(
-            function(res) {
-                let arr = [];
-                for (var key in rolesMap) {
-                    arr.push(rolesMap[key]);
+        if (now.getTime() > token.expire) {
+            localStorage.removeItem('auth_token')
+            makeReditect('/login');
+        } else {
+            axios.get(urlUser + token, opt).then(
+                function(res) {
+                    let arr = [];
+                    for (var key in rolesMap) {
+                        arr.push(rolesMap[key]);
+                    }
+                    
+                    const map = arr.slice(arr.indexOf(permission)); 
+                    const userRole = res.data.role_id;
+    
+                    if (map.includes(userRole)) {
+                        makeReditect(properUrl);
+                    } else {
+                        makeReditect('/error');
+                    }
                 }
-                
-                const map = arr.slice(arr.indexOf(permission)); 
-                const userRole = res.data.role_id;
-
-                if (map.includes(userRole)) {
-                    makeReditect(properUrl);
-                } else {
-                    makeReditect('/error');
+            ).catch(
+                function(error) {
+                    console.log(error)
                 }
-            }
-        ).catch(
-            function(error) {
-                console.log(error)
-            }
-        );
+            );
+        }
     }
 }
 

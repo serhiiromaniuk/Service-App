@@ -57,7 +57,7 @@ export class CustomParagraph extends React.Component {
     render() {
       return (
         <div className="home-text">
-            <p>{this.props.text}</p>
+            <h3>{this.props.text}</h3>
         </div>
       );
     }
