@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-    s := 1
+    s := 2
 
     switch s {
         case 1:
@@ -14,12 +14,4 @@ func main() {
         case 2:
             backend.Server()
     }
-
-    // if (os.Getenv("MODE") == "pkg") {
-    //     macos.PackageApp()
-    // } else if (os.Getenv("MODE") == "run") {
-    //     backend.Server()
-    // } else {
-    //     backend.Server()
-    // }
 }

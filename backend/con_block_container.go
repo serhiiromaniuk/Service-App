@@ -40,7 +40,7 @@ func createBlockContainer(c *gin.Context) {
 		Owner:	req.Owner,
 		Name:	req.Name,
 		Body:	req.Body }
-
+// todo: verify id
 	db.Transaction(func(tx *gorm.DB) error {
 		if err := tx.Create(&arg).Error; err != nil {
 			if err.(*mysql.MySQLError).Number == 1062 {

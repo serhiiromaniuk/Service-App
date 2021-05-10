@@ -4,6 +4,12 @@ import { Redirect } from 'react-router-dom';
 
 export const ENVIRONMENT = 'development';
 export const api_url = process.env.BACKEND_URL || 'http://localhost:8000/api/v1/';
+export const opt = {
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+    }
+};
 export const api = {
     ping: api_url + 'ping', 
     get: {
@@ -97,13 +103,6 @@ export function handlePermission(properUrl, permission = rolesMap.default) {
         }
     }
 }
-
-export const opt = {
-    headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-    }
-};
 
 export function handleLogin(Component) {
     const auth_token = !!localStorage.getItem('auth_token');
