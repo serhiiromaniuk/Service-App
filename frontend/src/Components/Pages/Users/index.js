@@ -4,6 +4,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import EnhancedTable from './EnhancedTable'
 import { api, opt } from '../../Utils'
 import AppPannel from '../../AppPannel';
+import { CustomTitle } from '../../Styles';
 
 const Users = () => {
   const columns = React.useMemo(
@@ -97,6 +98,7 @@ const Users = () => {
   return (
     <div>
       <AppPannel/>
+      <CustomTitle text='Users list' />
       <CssBaseline/>
       <EnhancedTable
         columns={columns}

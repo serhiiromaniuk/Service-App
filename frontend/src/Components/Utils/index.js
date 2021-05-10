@@ -69,7 +69,7 @@ export function handlePermission(properUrl, permission = rolesMap.default) {
     if (!auth_token) {
         makeReditect('/login')
     } else {
-        if (now.getTime() > token.expire) {
+        if (now.getTime() > auth_token.expire) {
             localStorage.removeItem('auth_token')
             makeReditect('/login');
         } else {
@@ -151,6 +151,7 @@ export function makeLogout() {
 export function makeReditect(to) {
     const auth_token = localStorage.getItem('auth_token');
     if (auth_token) {
+        // return <Redirect to={to} />;
         window.location.href = to;
     } else {
         window.location.href = '/login';

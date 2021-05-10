@@ -8,6 +8,10 @@ frontend: clean build-frontend
 clean:
 	@rm -rf ./saas.app ./frontend/build ./saas
 	@echo "[✔️] Clean complete!"
+build:
+	@MODE=run go build main.go
+pkg:
+	@MODE=pkg go build -o ./saas.app/Contents/MacOS/saas
 build-backend:
 	@mkdir -p ./saas.app/Contents/MacOS
 	@go build -o ./saas.app/Contents/MacOS/saas

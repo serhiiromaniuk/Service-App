@@ -42,7 +42,7 @@ func errorHandler(err error) gin.H {
 }
 
 func customErrorHandler(message string) gin.H {
-	mes := MessageStatus{
+	mes := messageStatus{
 		Status: "failed",
 		Message: message }
 	return gin.H{mes.Status: mes.Message}
@@ -50,7 +50,7 @@ func customErrorHandler(message string) gin.H {
 
 // Rework
 // func customHandler(code int, status string, message string) (c gin.Context) {
-// 	mes := MessageStatus{
+// 	mes := messageStatus{
 // 		Status: status,
 // 		Message: message }
 // 	c.JSON(code, gin.H{mes.Status: mes.Message})
@@ -80,7 +80,7 @@ func verifyBind(req interface{}) {
 	}
 }
 
-type MessageStatus struct {
+type messageStatus struct {
     Status string
     Message string
 }

@@ -14,7 +14,10 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { NavLink } from "react-router-dom";
 import { StyledMenu, StyledMenuItem, linkStyle} from './styles';
-import { makeLogout, rolesMap, handlePermission } from '../../Utils'
+import { makeLogout, rolesMap, makeReditect, api, opt, verifyAuth } from '../../Utils'
+import Error from '../../Pages/Error';
+import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 function CustomizedMenus() {
   const [anchorEl, setAnchorEl] = React.useState();
@@ -36,6 +39,7 @@ function CustomizedMenus() {
     setAnchorEl(!anchorEl);
     makeLogout()
   };
+
   const menuButtonStyles = {
       background: 'linear-gradient(45deg, #336ec2 10%, #07D6A8 100%)',
       border: '1px solid #ffffff',
@@ -43,6 +47,54 @@ function CustomizedMenus() {
       boxShadow: '3px 3px 3px 0 rgba(69, 90, 100, 0.9)',
       width: '100px'
   };
+
+  function makeRed(to) {
+    const auth_token = localStorage.getItem('auth_token');
+    if (auth_token) {
+        window.location = 'http://127.0.0.1:3000' + to;
+    } else {
+        window.location = 'http://127.0.0.1:3000' + '/login';
+    }
+}
+
+  function handlePermission(properUrl, permission = rolesMap.default) {
+    const auth_token = JSON.parse(localStorage.getItem('auth_token'));
+    const token = auth_token.token;
+    const now = new Date();
+    const urlUser = api.get.auth.user.uuid;
+    
+    if (!auth_token) {
+      makeRed('/login')
+    } else {
+        if (now.getTime() > token.expire) {
+            localStorage.removeItem('auth_token')
+            makeRed('/login');
+        } else {
+            axios.get(urlUser + token, opt).then(
+                function(res) {
+                    let arr = [];
+                    for (var key in rolesMap) {
+                        arr.push(rolesMap[key]);
+                    }
+                    
+                    const map = arr.slice(arr.indexOf(permission)); 
+                    const userRole = res.data.role_id;
+    
+                    if (map.includes(userRole)) {
+                      makeRed(properUrl);
+                    } else {
+                      // verifyAuth(Error)
+                      makeRed('/error');
+                    }
+                }
+            ).catch(
+                function(error) {
+                    console.log(error)
+                }
+            );
+        }
+    }
+  }
 
   return (
     <div >

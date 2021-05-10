@@ -4,14 +4,9 @@ import (
 	"log"
 
 	"gorm.io/gorm"
-	"github.com/google/uuid"
 	"github.com/go-sql-driver/mysql"
     "github.com/davecgh/go-spew/spew"
 )
-
-func Uuid() uuid.UUID {
-	return uuid.New()
-}
 
 func MigratreDb() {
 	Models := []interface{}{

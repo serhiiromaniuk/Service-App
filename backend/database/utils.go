@@ -10,10 +10,11 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"github.com/joho/godotenv"
+	"github.com/google/uuid"
 )
 
 var (
-	LoggerConfig = logger.New(
+	loggerConfig = logger.New(
 		log.New(os.Stdout, "\r\n", log.LstdFlags),
 		logger.Config{
 		  SlowThreshold: time.Second,   
@@ -23,9 +24,13 @@ var (
 		DSN: declareEnvironment(),
 		DontSupportRenameIndex: true,
 		SkipInitializeWithVersion: false }), &gorm.Config{
-			Logger: LoggerConfig,
+			Logger: loggerConfig,
 			SkipDefaultTransaction: true }	)
 )
+
+func Uuid() uuid.UUID {
+	return uuid.New()
+}
 
 func declareEnvironment() (config string) {
 	if godotenv.Load("/Users/serhiiromaniuk/go/src/saas/.env") != nil {
