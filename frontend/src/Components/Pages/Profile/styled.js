@@ -9,7 +9,12 @@ export const StyledProfile = () => {
         'avatar_boy_light',
         'avatar_girl_bald',
         'avatar_girl_red',
-        'avatar_man_brown'
+        'avatar_girl_black',
+        'avatar_girl_grey',
+        'avatar_girl_purple',
+        'avatar_man_brown',
+        'avatar_man_glasses',
+        'avatar_man_glasses_orange'
     ];
     const auth_token = JSON.parse(localStorage.getItem('auth_token'));
     const now = new Date();
