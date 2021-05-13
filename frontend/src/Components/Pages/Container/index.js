@@ -3,7 +3,7 @@ import AppPannel from '../../AppPannel';
 import { CustomTitle } from '../../Styles';
 import CustomCard from './card';
 import AddContainer from './addContainer';
-import { api, opt, getUserData } from '../../Utils'
+import { api, opt, getUserData, decryptText } from '../../Utils'
 import './style.css';
 import _ from 'lodash';
 import axios from 'axios';
@@ -31,11 +31,12 @@ export default function ContainerCard() {
         let cards = [];
         for (let index = 0; index < data.length; index++) {
             const element = data[index];
+            const body = decryptText(element.body).toString();
             cards.push(
                 <div className="column">
                     <CustomCard
                         containerName={element.name}
-                        containerBody={element.body}
+                        containerBody={body}
                         containerCreatedAt={element.created_at}
                     />
                 </div>

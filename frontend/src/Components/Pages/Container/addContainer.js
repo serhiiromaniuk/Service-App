@@ -11,7 +11,7 @@ import Switch from '@material-ui/core/Switch'
 import TextField from '@material-ui/core/TextField'
 import Tooltip from '@material-ui/core/Tooltip'
 import axios from 'axios'
-import { api, opt, getUserData } from '../../Utils'
+import { api, opt, getUserData, encryptText } from '../../Utils'
 import './style.css'; 
 
 const initialState = {
@@ -55,7 +55,7 @@ const AddContainer = props => {
             const data = {
               'owner': res.data.uuid,
               'name':  container.name,
-              'body':  container.body
+              'body':  encryptText(container.body)
             };
             axios.post(url, data, opt)
               .then(
@@ -105,7 +105,7 @@ const AddContainer = props => {
           <TextField
             id="standard-basic"
             margin="dense"
-            label="Container Name"
+            label="Name"
             type="text"
             fullWidth
             value={container.name}
@@ -114,7 +114,7 @@ const AddContainer = props => {
           <TextField
             id="standard-basic"
             margin="dense"
-            label="Container Body"
+            label="Body"
             type="text"
             fullWidth
             value={container.body}

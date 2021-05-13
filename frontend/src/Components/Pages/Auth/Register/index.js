@@ -80,37 +80,44 @@ class Register extends Component {
         errorOpen: true,
         error: "Password are not equal"
       });
+    } else {
+      if (this.state.password.length <= 6) {
+        this.setState({
+          errorOpen: true,
+          error: "Incorrect password"
+        });
+      } else {
+        const url = api.post.auth.user.create;
+        const data = {
+            username: this.state.username,
+            email:    this.state.email,
+            country:  this.state.country,
+            password: this.state.password
+        };
+        let externalState = this;
+    
+        axios.post(url, data, opt)
+          .then(
+            function(res) {
+              makeLogin(res.data.uuid)
+            }
+          ).catch(
+            function(err) {
+              if (err.response.status == 400) {
+                externalState.setState({
+                  errorOpen: true,
+                  error: "Some of field are not correct. `Username`: only alfanumeric, `Password`: min 6 symbols"
+                });
+              } else {
+                externalState.setState({
+                  errorOpen: true,
+                  error: err.response.data.failed
+                });
+              }
+            }
+          );
+      }
     }
-
-    const url = api.post.auth.user.create;
-    const data = {
-        username: this.state.username,
-        email:    this.state.email,
-        country:  this.state.country,
-        password: this.state.password
-    };
-    let externalState = this;
-
-    axios.post(url, data, opt)
-      .then(
-        function(res) {
-          makeLogin(res.data.uuid)
-        }
-      ).catch(
-        function(err) {
-          if (err.response.status == 400) {
-            externalState.setState({
-              errorOpen: true,
-              error: "Some of field are not correct. `Username`: only alfanumeric, `Password`: min 6 symbols"
-            });
-          } else {
-            externalState.setState({
-              errorOpen: true,
-              error: err.response.data.failed
-            });
-          }
-        }
-      );
   };
 
   render() {

@@ -78,30 +78,38 @@ class Login extends Component {
         errorOpen: true,
         error: "Password are not equal"
       });
+    } else {
+      if (this.state.password.length <= 6) {
+        this.setState({
+          errorOpen: true,
+          error: "Incorrect password"
+        });
+      } else {
+        const url = api.post.auth.user.login;
+        const data = {
+            email:    this.state.email,
+            password: this.state.password
+        };
+        let externalState = this;
+    
+        axios.post(url, data, opt)
+          .then(
+            function(res) {
+              makeLogin(res.data.ok)
+            }
+          ).catch(
+            function(err) {
+              if (!!err.response.data.failed) {
+                externalState.setState({
+                  errorOpen: true,
+                  error: err.response.data.failed
+                });
+              }
+            }
+          );
+      }
     }
 
-    const url = api.post.auth.user.login;
-    const data = {
-        email:    this.state.email,
-        password: this.state.password
-    };
-    let externalState = this;
-
-    axios.post(url, data, opt)
-      .then(
-        function(res) {
-          makeLogin(res.data.ok)
-        }
-      ).catch(
-        function(err) {
-          if (!!err.response.data.failed) {
-            externalState.setState({
-              errorOpen: true,
-              error: err.response.data.failed
-            });
-          }
-        }
-      );
   };
 
   render() {

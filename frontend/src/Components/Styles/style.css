@@ -25,6 +25,8 @@
 * {
     font-family: 'Quicksand', sans-serif;
 }
+
 html, body {
-    background-color: #f9f9fa
+    background-color: #f9f9fa;
+    /* border: 2px solid #000000; */
 }
