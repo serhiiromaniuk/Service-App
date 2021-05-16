@@ -8,9 +8,8 @@ jobs:
     steps:
       - checkout
       - run: |
-          cd frontend
-          yarn
-          yarn build
+          cd frontend && yarn && yarn build
+          ls -la
       - store_artifacts:
           path: frontend/build
   build:golang:
