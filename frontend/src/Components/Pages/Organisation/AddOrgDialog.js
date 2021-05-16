@@ -84,7 +84,7 @@ const AddOrgDialog = props => {
           <DialogContentText>Fill organisation properties</DialogContentText>
           <TextField
             margin="dense"
-            label="Organisation Name"
+            label="Name"
             type="text"
             fullWidth
             value={state.org_name}
@@ -93,7 +93,7 @@ const AddOrgDialog = props => {
           <TextField
             id="standard-basic"
             margin="dense"
-            label="Organisation Country"
+            label="Country"
             type="text"
             fullWidth
             value={state.org_country}

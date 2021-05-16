@@ -25,13 +25,14 @@ export default function ContainerCard() {
             }
         );
     }
-    React.useEffect(() => { getContainers() },[]);
+    React.useEffect(() => { getContainers() }, []);
 
     function renderCard() {
         let cards = [];
+        const userData = getUserData();
         for (let index = 0; index < data.length; index++) {
             const element = data[index];
-            const body = decryptText(element.body).toString();
+            const body = decryptText(element.body, userData.token).toString();
             cards.push(
                 <div className="column">
                     <CustomCard

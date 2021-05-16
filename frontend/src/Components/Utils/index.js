@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-
+import CryptoJS from 'crypto-js';
 export const ENVIRONMENT = 'development';
 export const api_url = process.env.BACKEND_URL || 'http://localhost:8000/api/v1/';
 export const opt = {
@@ -167,3 +167,10 @@ export function getUserData() {
     }
 }
 
+export function encryptText(text, key) {
+    return CryptoJS.AES.encrypt(text, key).toString();
+}
+
+export function decryptText(encryption, key) {
+    return CryptoJS.AES.decrypt(encryption, key).toString(CryptoJS.enc.Utf8);
+}

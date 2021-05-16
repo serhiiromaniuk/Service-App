@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
 
 .padding {
-    padding: 3rem !important
+    padding: 1rem !important
 }
 
 .user-card-full {
@@ -17,7 +17,7 @@
     -webkit-box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
     box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.4);
     border: 1px solid #ffffff;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
 
 .m-r-0 {

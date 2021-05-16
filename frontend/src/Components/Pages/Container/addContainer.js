@@ -55,7 +55,7 @@ const AddContainer = props => {
             const data = {
               'owner': res.data.uuid,
               'name':  container.name,
-              'body':  encryptText(container.body)
+              'body':  encryptText(container.body, res.data.uuid)
             };
             axios.post(url, data, opt)
               .then(
