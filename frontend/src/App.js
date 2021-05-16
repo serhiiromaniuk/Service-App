@@ -1,16 +1,16 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import Home from './components/Pages/Home'
-import About from './components/Pages/About'
-import Profile from './components/Pages/Profile'
-import Users from './components/Pages/Users';
-import Error from './components/Pages/Error';
-import Organisation from './components/Pages/Organisation';
-import ContainerCard from './components/Pages/Container';
-import Login from './components/Pages/Auth/Login';
-import Register from './components/Pages/Auth/Register';
-import { verifyAuth, handleLogin } from './components/Utils';
+import Home from './Components/Pages/Home'
+import About from './Components/Pages/About'
+import Profile from './Components/Pages/Profile'
+import Users from './Components/Pages/Users';
+import Error from './Components/Pages/Error';
+import Organisation from './Components/Pages/Organisation';
+import ContainerCard from './Components/Pages/Container';
+import Login from './Components/Pages/Auth/Login';
+import Register from './Components/Pages/Auth/Register';
+import { verifyAuth, handleLogin } from './Components/Utils';
 
 export default function App() {
     return (
