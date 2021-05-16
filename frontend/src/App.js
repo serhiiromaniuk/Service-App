@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Home from './components/Pages/Home'
 import About from './components/Pages/About'
@@ -12,8 +12,7 @@ import Login from './components/Pages/Auth/Login';
 import Register from './components/Pages/Auth/Register';
 import { verifyAuth, handleLogin } from './components/Utils';
 
-export default class App extends React.Component {
-  render() {
+export default function App() {
     return (
       <div>
         <BrowserRouter>
@@ -60,5 +59,4 @@ export default class App extends React.Component {
         </BrowserRouter>
       </div>
     );
-  }
 }
